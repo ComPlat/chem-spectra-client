@@ -1,66 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { createLogger } from 'redux-logger'; // eslint-disable-line
-
-import reducers from './reducers';
-import App from './components/App';
+// import PropTypes from 'prop-types';
+// import { logger } from 'redux-logger';
+import reducers from './reducers/index';
 import sagas from './sagas/index';
+import Frame from './frame';
 
-import Signup from './components/auth/Signup';
-import Login from './components/auth/Login';
-import Logout from './components/auth/Logout';
-import Main from './components/Main';
-import NotFound from './components/NotFound';
 
 // - - - store & middleware - - -
 const sagaMiddleware = createSagaMiddleware();
-let middlewares = [sagaMiddleware];
+const middlewares = [sagaMiddleware]; // logger
 
-if (process.env.NODE_ENV === 'development') {
-  const logger = createLogger({
-    collapsed: true,
-  });
-
-  middlewares = [...middlewares, logger];
-}
-
-const store = createStore(
-  reducers,
-  {
-    auth: {
-      name: localStorage.getItem('name') || '',
-      email: localStorage.getItem('email') || '',
-      token: localStorage.getItem('token') || '',
-      errorMsg: '',
-    },
-  },
+const store = compose(
   applyMiddleware(...middlewares),
-);
+)(createStore)(reducers);
 
 sagaMiddleware.run(sagas);
 
+
 // - - - React - - -
-const MainEntryPoint = () => (
+const ChemSpectraClient = () => (
   <Provider store={store}>
-    <BrowserRouter>
-      <App>
-        <Switch>
-          <Route path="/" exact component={Main} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/login" component={Login} />
-          <Route path="/logout" component={Logout} />
-          <Route component={NotFound} />
-        </Switch>
-      </App>
-    </BrowserRouter>
+    <Frame />
   </Provider>
 );
 
+
+// - - - DOM - - -
 ReactDOM.render(
-  <MainEntryPoint />,
+  <ChemSpectraClient />,
   document.getElementById('root'),
 );
+
+export default ChemSpectraClient;

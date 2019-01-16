@@ -1,1 +1,7 @@
-TBD
+
+
+### INSTALL
+
+```
+$ yarn install
+```

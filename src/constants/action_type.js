@@ -1,0 +1,16 @@
+const FILE = {
+  ADD: 'ADD_FILE',
+  ADD_BAD: 'ADD_BAD_FILE',
+  CONVERT: 'CONVERT_FILE',
+  CONVERT_GOOD: 'CONVERT_GOOD_FILE',
+  CONVERT_BAD: 'CONVERT_BAD_FILE',
+};
+
+const NOTICE = {
+  INIT: 'INIT_NOTICE',
+};
+
+export {
+  FILE,
+  NOTICE,
+};
