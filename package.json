@@ -1,0 +1,46 @@
+{
+  "name": "chem-spectra-client",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:3001",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "peerDependencies": {
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-scripts": "2.1.1"
+  },
+  "dependencies": {
+    "@material-ui/core": "^3.4.0",
+    "@material-ui/icons": "^3.0.1",
+    "axios": "^0.18.0",
+    "classnames": "^2.2.6",
+    "prop-types": "^15.6.2",
+    "react-redux": "^5.1.0",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.1",
+    "react-spectra-viewer": "^0.2.4",
+    "redux": "^4.0.1",
+    "redux-form": "^7.4.2",
+    "redux-saga": "^0.16.2"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^17.1.0",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "redux-logger": "^3.0.6"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
