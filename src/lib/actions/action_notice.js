@@ -1,10 +1,10 @@
 import { NOTICE } from '../constants/action_type';
 
-const initNotice = payload => (
+const manualClear = payload => (
   {
-    type: NOTICE.INIT,
+    type: NOTICE.MANUAL_CLEAR,
     payload,
   }
 );
 
-export { initNotice }; // eslint-disable-line
+export { manualClear }; // eslint-disable-line

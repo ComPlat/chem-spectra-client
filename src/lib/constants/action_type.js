@@ -9,7 +9,7 @@ const FILE = {
 };
 
 const NOTICE = {
-  INIT: 'INIT_NOTICE',
+  MANUAL_CLEAR: 'MANUAL_CLEAR_NOTICE',
 };
 
 export {

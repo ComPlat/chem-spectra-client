@@ -1,18 +1,35 @@
-import { NOTICE } from '../constants/action_type';
+import { NOTICE, FILE } from '../constants/action_type';
 
 const initialState = {
-  ref: false,
+  status: false,
+  message: false,
 };
 
-const initNotice = (state, action) => {
-  const { ref } = action.payload;
-  return Object.assign({}, state, { ref });
+const sucConversionState = {
+  status: 'success',
+  message: 'Conversion success!',
+};
+
+const errConversionState = {
+  status: 'error',
+  message: 'Conversion error!',
+};
+
+const errFileState = {
+  status: 'error',
+  message: 'Invalid File: accept only [.dx or .jdx], [<10MB]',
 };
 
 const noticeReducer = (state = initialState, action) => {
   switch (action.type) {
-    case NOTICE.INIT:
-      return initNotice(state, action);
+    case FILE.ADD_BAD:
+      return Object.assign({}, state, errFileState);
+    case FILE.CONVERT_GOOD:
+      return Object.assign({}, state, sucConversionState);
+    case FILE.CONVERT_BAD:
+      return Object.assign({}, state, errConversionState);
+    case NOTICE.MANUAL_CLEAR:
+      return Object.assign({}, state, initialState);
     default:
       return state;
   }
