@@ -18,7 +18,7 @@ const fixDigit = (input, precision) => {
   return output.toFixed(precision);
 };
 
-const convertPeaksToStr = (peaks, layout) => {
+const writePeaksBody = (peaks, layout) => {
   const peaksXY = ToXY(peaks);
   const digit = spectraDigit(layout);
 
@@ -39,6 +39,12 @@ const buildData = (target) => {
   };
 };
 
+const toPeakStr = (peaks) => {
+  const arr = peaks.map(p => `${p.x},${p.y}`);
+  const str = arr.join('#');
+  return str;
+};
+
 const spectraOps = {
   PLAIN: { head: '', tail: '.' },
   '1H': { head: '1H = ', tail: '.' },
@@ -47,5 +53,5 @@ const spectraOps = {
 };
 
 export {
-  convertPeaksToStr, buildData, spectraDigit, spectraOps,
+  writePeaksBody, toPeakStr, buildData, spectraDigit, spectraOps,
 };

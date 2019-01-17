@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { SpectraViewer } from 'react-spectra-viewer';
+
+import { saveFile } from '../actions/file';
 import {
-  convertPeaksToStr, buildData, spectraOps,
+  writePeaksBody, toPeakStr, buildData, spectraOps,
 } from '../utils/edit';
 
 const titleStyle = {
@@ -67,13 +69,15 @@ class Content extends React.Component {
 
   writePeaks(peaks, layout) {
     const ops = spectraOps[layout];
-    const body = convertPeaksToStr(peaks, layout);
+    const body = writePeaksBody(peaks, layout);
     const desc = ops.head + body + ops.tail;
     this.setState({ desc });
   }
 
   savePeaks(peaks, shift) {
-    console.log(peaks, shift);
+    const { saveFileAct } = this.props;
+    const peakStr = toPeakStr(peaks);
+    saveFileAct({ peakStr, shift });
   }
 
   render() {
@@ -103,6 +107,7 @@ class Content extends React.Component {
           placeholder="peaks"
           style={editorStyle}
           value={desc}
+          readOnly={true}
         />
       </div>
     );
@@ -118,6 +123,7 @@ const mapStateToProps = (state, props) => ( // eslint-disable-line
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
+    saveFileAct: saveFile,
   }, dispatch)
 );
 
@@ -127,6 +133,7 @@ Content.propTypes = {
     PropTypes.bool,
   ]).isRequired,
   loadingSt: PropTypes.bool.isRequired,
+  saveFileAct: PropTypes.func.isRequired,
 };
 
 export default connect(

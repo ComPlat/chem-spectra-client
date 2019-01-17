@@ -1,5 +1,7 @@
 import base64 from 'base-64';
-import { call, put, takeEvery } from 'redux-saga/effects';
+import {
+  call, put, takeEvery, select,
+} from 'redux-saga/effects';
 import { ExtractJcamp } from 'react-spectra-viewer';
 
 import { FILE } from '../constants/action_type';
@@ -46,9 +48,23 @@ function* convertFile(action) {
   }
 }
 
+const getFileSrc = state => state.file.src;
+
+function* saveFile(action) {
+  const { payload } = action;
+
+  const src = yield select(getFileSrc);
+  const { name } = src;
+  const filename = name.split('.').slice(0, -1).join('.');
+  const target = Object.assign({}, payload, { src, filename });
+
+  yield call(Fetcher.saveFile, target);
+}
+
 const fileSagas = [
   takeEvery(FILE.ADD, analysisFile),
   takeEvery(FILE.CONVERT, convertFile),
+  takeEvery(FILE.SAVE, saveFile),
 ];
 
 export default fileSagas;

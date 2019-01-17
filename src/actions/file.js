@@ -14,4 +14,11 @@ const convertFile = payload => (
   }
 );
 
-export { addFile, convertFile };
+const saveFile = payload => (
+  {
+    type: FILE.SAVE,
+    payload,
+  }
+);
+
+export { addFile, convertFile, saveFile };
