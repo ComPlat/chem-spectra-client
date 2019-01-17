@@ -58,8 +58,8 @@ const saveFile = (target) => {
   return promise;
 };
 
-const Fetcher = {
+const FetcherFile = {
   convertFile, saveFile,
 };
 
-export default Fetcher;
+export default FetcherFile;

@@ -5,8 +5,8 @@ import {
 import { ExtractJcamp } from 'react-spectra-viewer';
 
 import { FILE } from '../constants/action_type';
-import { VerifyExt, VerifySize } from '../utils/file';
-import Fetcher from '../fetchers/file';
+import { VerifyExt, VerifySize } from '../utils/util_file';
+import FetcherFile from '../fetchers/fetcher_file';
 
 function* analysisFile(action) {
   const { payload } = action;
@@ -31,7 +31,7 @@ function* convertFile(action) {
   const { payload } = action;
   const { file } = payload;
 
-  const rsp = yield call(Fetcher.convertFile, file);
+  const rsp = yield call(FetcherFile.convertFile, file);
   const { jcamp, img } = rsp;
   const raw = base64.decode(jcamp);
   const jcampData = ExtractJcamp(raw);
@@ -58,7 +58,7 @@ function* saveFile(action) {
   const filename = name.split('.').slice(0, -1).join('.');
   const target = Object.assign({}, payload, { src, filename });
 
-  yield call(Fetcher.saveFile, target);
+  yield call(FetcherFile.saveFile, target);
 }
 
 const fileSagas = [

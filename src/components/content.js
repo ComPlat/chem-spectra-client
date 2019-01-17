@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { SpectraViewer } from 'react-spectra-viewer';
 
-import { saveFile } from '../actions/file';
+import { saveFile } from '../actions/action_file';
 import {
   writePeaksBody, toPeakStr, buildData, spectraOps,
-} from '../utils/edit';
+} from '../utils/util_edit';
 
 const titleStyle = {
   backgroundColor: '#f5f5f5',

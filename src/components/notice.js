@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import NotificationSystem from 'react-notification-system';
 
-import { initNotice } from '../actions/notice';
+import { initNotice } from '../actions/action_notice';
 
 const ref = React.createRef();
 

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Dropzone from 'react-dropzone';
 
-import { addFile } from '../actions/file';
+import { addFile } from '../actions/action_file';
 
 const baseStyle = {
   border: '2px dashed blue',
