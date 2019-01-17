@@ -59,6 +59,9 @@ function* saveFile(action) {
   const target = Object.assign({}, payload, { src, filename });
 
   yield call(FetcherFile.saveFile, target);
+  yield put({
+    type: FILE.SAVE_DONE,
+  });
 }
 
 const fileSagas = [

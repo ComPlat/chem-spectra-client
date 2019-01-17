@@ -37,14 +37,6 @@ const renderTitle = () => (
   </div>
 );
 
-const renderLoading = () => (
-  <div style={titleStyle}>
-    <h1 style={txtStyle}>
-      Loading...
-    </h1>
-  </div>
-);
-
 class Content extends React.Component {
   constructor(props) {
     super(props);
@@ -82,8 +74,7 @@ class Content extends React.Component {
 
   render() {
     const { desc } = this.state;
-    const { fileSt, loadingSt } = this.props;
-    if (loadingSt) return renderLoading();
+    const { fileSt } = this.props;
     if (!fileSt) return renderTitle();
 
     const {
@@ -107,7 +98,7 @@ class Content extends React.Component {
           placeholder="peaks"
           style={editorStyle}
           value={desc}
-          readOnly={true}
+          readOnly
         />
       </div>
     );
@@ -117,7 +108,6 @@ class Content extends React.Component {
 const mapStateToProps = (state, props) => ( // eslint-disable-line
   {
     fileSt: state.file,
-    loadingSt: state.loading,
   }
 );
 
@@ -132,7 +122,6 @@ Content.propTypes = {
     PropTypes.object,
     PropTypes.bool,
   ]).isRequired,
-  loadingSt: PropTypes.bool.isRequired,
   saveFileAct: PropTypes.func.isRequired,
 };
 
