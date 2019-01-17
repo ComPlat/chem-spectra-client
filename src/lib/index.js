@@ -27,4 +27,4 @@ const ChemSpectraClient = () => (
   </Provider>
 );
 
-export default ChemSpectraClient;
+export { ChemSpectraClient }; // eslint-disable-line
