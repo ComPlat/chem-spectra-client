@@ -18,12 +18,16 @@ const fixDigit = (input, precision) => {
   return output.toFixed(precision);
 };
 
-const writePeaksBody = (peaks, layout) => {
+const writePeaksBody = (peaks, layout, isAscend) => {
   const peaksXY = ToXY(peaks);
   const digit = spectraDigit(layout);
-
   const result = peaksXY.map(p => fixDigit(parseFloat(p[0]), digit));
-  const ordered = result.sort((a, b) => a - b).join(', ');
+
+  const ascendFunc = (a, b) => a - b;
+  const descendFunc = (a, b) => b - a;
+  const sortFunc = isAscend ? ascendFunc : descendFunc;
+
+  const ordered = result.sort(sortFunc).join(', ');
   return ordered;
 };
 

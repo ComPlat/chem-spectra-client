@@ -59,9 +59,9 @@ class Content extends React.Component {
     }
   }
 
-  writePeaks(peaks, layout) {
+  writePeaks(peaks, layout, isAscend) {
     const ops = spectraOps[layout];
-    const body = writePeaksBody(peaks, layout);
+    const body = writePeaksBody(peaks, layout, isAscend);
     const desc = ops.head + body + ops.tail;
     this.setState({ desc });
   }

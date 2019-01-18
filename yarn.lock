@@ -9231,10 +9231,10 @@ react-scripts@2.1.1:
   optionalDependencies:
     fsevents "1.2.4"
 
-react-spectra-viewer@^0.2.9:
-  version "0.2.9"
-  resolved "https://registry.yarnpkg.com/react-spectra-viewer/-/react-spectra-viewer-0.2.9.tgz#30d8ccd561fb6fbe45969c361841f30512602829"
-  integrity sha512-Hmr1ETpDufoIJDL0kdfsByvt3peEs7QnUP2v6z5WIX+r7WyDhGGzt9sFz9rRpH3kFCQVyTxv7bXTItpkogPvrw==
+react-spectra-viewer@^0.2.10:
+  version "0.2.10"
+  resolved "https://registry.yarnpkg.com/react-spectra-viewer/-/react-spectra-viewer-0.2.10.tgz#1c36a8fe181f429405f3debf2af23db2679f42c2"
+  integrity sha512-9MMCu9C9YKRwwdrP6KpRe+4oiHFIdrkVTrjybW3pyQpctOz53ObcrC9qVAdpt9Gve1SEJeSzrZrOmFzq6dmXpA==
   dependencies:
     "@material-ui/core" "^3.2.2"
     "@material-ui/icons" "^3.0.1"
