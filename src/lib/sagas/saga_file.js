@@ -2,7 +2,7 @@ import base64 from 'base-64';
 import {
   call, put, takeEvery, select,
 } from 'redux-saga/effects';
-import { ExtractJcamp } from 'react-spectra-viewer';
+import { FN } from 'react-spectra-viewer';
 
 import { FILE } from '../constants/action_type';
 import { VerifyExt, VerifySize } from '../utils/util_file';
@@ -34,7 +34,7 @@ function* convertFile(action) {
   const rsp = yield call(FetcherFile.convertFile, file);
   const { jcamp, img } = rsp;
   const raw = base64.decode(jcamp);
-  const jcampData = ExtractJcamp(raw);
+  const jcampData = FN.ExtractJcamp(raw);
   if (rsp && rsp.status) {
     yield put({
       type: FILE.CONVERT_GOOD,

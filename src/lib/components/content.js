@@ -2,12 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { SpectraViewer } from 'react-spectra-viewer';
+import { SpectraViewer, FN } from 'react-spectra-viewer';
 
 import { saveFile } from '../actions/action_file';
-import {
-  writePeaksBody, toPeakStr, buildData, spectraOps,
-} from '../utils/util_edit';
 
 const titleStyle = {
   backgroundColor: '#f5f5f5',
@@ -59,16 +56,22 @@ class Content extends React.Component {
     }
   }
 
-  writePeaks(peaks, layout, isAscend) {
-    const ops = spectraOps[layout];
-    const body = writePeaksBody(peaks, layout, isAscend);
-    const desc = ops.head + body + ops.tail;
+  rmDollarSign(target) {
+    return target.replace(/\$/g, '');
+  }
+
+  writePeaks(peaks, layout, shift, isAscend) {
+    const body = FN.peaksBody(peaks, layout, shift, isAscend);
+    const wrapper = FN.peaksWrapper(layout, shift);
+    const desc = this.rmDollarSign(wrapper.head) + body + wrapper.tail;
     this.setState({ desc });
   }
 
-  savePeaks(peaks, shift) {
+  savePeaks(peaks, layout, shift) {
     const { saveFileAct } = this.props;
-    const peakStr = toPeakStr(peaks);
+    const fPeaks = FN.rmRef(peaks, shift);
+    const peakStr = FN.toPeakStr(fPeaks);
+
     saveFileAct({ peakStr, shift });
   }
 
@@ -79,7 +82,7 @@ class Content extends React.Component {
 
     const {
       input, xLabel, yLabel, peakObjs, isExist,
-    } = buildData(fileSt.jcamp);
+    } = FN.buildData(fileSt.jcamp);
     if (!isExist) return renderTitle();
 
     return (
