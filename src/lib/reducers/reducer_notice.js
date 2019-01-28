@@ -17,7 +17,7 @@ const errConversionState = {
 
 const errFileState = {
   status: 'error',
-  message: 'Invalid File: accept only [.dx or .jdx], [<10MB]',
+  message: 'Invalid File: accept only [.dx, .jdx, .JCAMP], [<10MB]',
 };
 
 const noticeReducer = (state = initialState, action) => {
