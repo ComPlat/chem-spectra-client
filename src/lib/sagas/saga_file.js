@@ -32,10 +32,11 @@ function* convertFile(action) {
   const { file } = payload;
 
   const rsp = yield call(FetcherFile.convertFile, file);
-  const { jcamp, img } = rsp;
-  const raw = base64.decode(jcamp);
-  const jcampData = FN.ExtractJcamp(raw);
+
   if (rsp && rsp.status) {
+    const { jcamp, img } = rsp;
+    const raw = base64.decode(jcamp);
+    const jcampData = FN.ExtractJcamp(raw);
     yield put({
       type: FILE.CONVERT_GOOD,
       payload: Object.assign({}, { file, img, jcamp: jcampData }),
