@@ -6276,9 +6276,9 @@ istanbul-reports@^1.5.1:
   dependencies:
     handlebars "^4.0.3"
 
-"jcampconverter@https://github.com/ComPlat/jcampconverter.git#master":
+"jcampconverter@git+https://github.com/ComPlat/jcampconverter.git#master":
   version "2.11.0"
-  resolved "https://github.com/ComPlat/jcampconverter.git#44cbc08cee3eb34e8a0e0f09d494dada44943f33"
+  resolved "git+https://github.com/ComPlat/jcampconverter.git#44cbc08cee3eb34e8a0e0f09d494dada44943f33"
 
 jest-changed-files@^23.4.2:
   version "23.4.2"
@@ -9243,10 +9243,10 @@ react-scripts@2.1.1:
   optionalDependencies:
     fsevents "1.2.4"
 
-react-spectra-viewer@^0.3.4:
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/react-spectra-viewer/-/react-spectra-viewer-0.3.4.tgz#1642038bc5110d477534cada314dc13348b68486"
-  integrity sha512-acGhGSgwbAD9p6VjHcWM9epCSWewP/FMDEF0Yu09iqffv/i6H0dAuGijGcnjaR6eAZm3gC3ApLRwKzejcjmXYw==
+react-spectra-viewer@^0.3.6:
+  version "0.3.6"
+  resolved "https://registry.yarnpkg.com/react-spectra-viewer/-/react-spectra-viewer-0.3.6.tgz#f9c5b60cc3f9e4e68deb9fd661d6bff0516dab2b"
+  integrity sha512-rrl9b3PCEnVx4aNGHuQNIHi2bfUJEGOdfMX8hV69s5sdsWiy9UzwbVtEqp8a+sfws3KBm7OmPdJJSPh/YItq7Q==
   dependencies:
     "@material-ui/core" "^3.2.2"
     "@material-ui/icons" "^3.0.1"
