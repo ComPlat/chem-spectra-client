@@ -1,4 +1,4 @@
-import { NOTICE, FILE } from '../constants/action_type';
+import { NOTICE, FILE, PREDICT } from '../constants/action_type';
 
 const initialState = {
   status: false,
@@ -20,6 +20,16 @@ const errFileState = {
   message: 'Invalid File: accept only [.dx, .jdx, .JCAMP], [<10MB]',
 };
 
+const sucPredictState = {
+  status: 'success',
+  message: 'Predict success!',
+};
+
+const errPredictState = {
+  status: 'error',
+  message: 'Predict error!',
+};
+
 const noticeReducer = (state = initialState, action) => {
   switch (action.type) {
     case FILE.ADD_FAIL:
@@ -28,6 +38,10 @@ const noticeReducer = (state = initialState, action) => {
       return Object.assign({}, state, sucConversionState);
     case FILE.CONVERT_FAIL:
       return Object.assign({}, state, errConversionState);
+    case PREDICT.BY_PEAKS_DONE:
+      return Object.assign({}, state, sucPredictState);
+    case PREDICT.BY_PEAKS_FAIL:
+      return Object.assign({}, state, errPredictState);
     case NOTICE.MANUAL_CLEAR:
       return Object.assign({}, state, initialState);
     default:

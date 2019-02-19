@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { SpectraViewer, FN } from 'react-spectra-viewer';
 
 import { saveFileInit } from '../actions/action_file';
+import { predictByPeaksInit } from '../actions/action_predict';
 
 const titleStyle = {
   backgroundColor: '#f5f5f5',
@@ -40,10 +41,14 @@ class Content extends React.Component {
 
     this.state = {
       desc: '',
+      molecule: '',
     };
 
     this.writePeaks = this.writePeaks.bind(this);
     this.savePeaks = this.savePeaks.bind(this);
+    this.predict = this.predict.bind(this);
+    this.updatInput = this.updatInput.bind(this);
+    this.buildPredictObj = this.buildPredictObj.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -75,6 +80,31 @@ class Content extends React.Component {
     saveFileInitAct({ peakStr, shift });
   }
 
+  predict(peaks, layout, _) { // eslint-disable-line
+    const { predictByPeaksInitAct } = this.props;
+    const { molecule } = this.state;
+
+    predictByPeaksInitAct({ molecule, peaks, layout });
+  }
+
+  updatInput(e) {
+    const molecule = e.target.value;
+    this.setState({ molecule });
+  }
+
+  buildPredictObj() {
+    const { molecule } = this.state;
+    const { predictSt } = this.props;
+
+    const predictObj = {
+      btnCb: this.predict,
+      inputCb: this.updatInput,
+      molecule,
+      predictions: predictSt.result,
+    };
+    return predictObj;
+  }
+
   render() {
     const { desc } = this.state;
     const { fileSt } = this.props;
@@ -85,6 +115,13 @@ class Content extends React.Component {
     } = FN.buildData(fileSt.jcamp);
     if (!isExist) return renderTitle();
 
+    const operations = [
+      { name: 'save peaks', value: this.savePeaks },
+      { name: 'write peaks', value: this.writePeaks },
+    ].filter(r => r.value);
+
+    const predictObj = this.buildPredictObj();
+
     return (
       <div>
         <SpectraViewer
@@ -92,8 +129,8 @@ class Content extends React.Component {
           xLabel={xLabel}
           yLabel={yLabel}
           peakObjs={peakObjs}
-          writePeaks={this.writePeaks}
-          savePeaks={this.savePeaks}
+          predictObj={predictObj}
+          operations={operations}
         />
         <textarea
           rows="6"
@@ -111,12 +148,14 @@ class Content extends React.Component {
 const mapStateToProps = (state, props) => ( // eslint-disable-line
   {
     fileSt: state.file,
+    predictSt: state.predict,
   }
 );
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
     saveFileInitAct: saveFileInit,
+    predictByPeaksInitAct: predictByPeaksInit,
   }, dispatch)
 );
 
@@ -126,6 +165,11 @@ Content.propTypes = {
     PropTypes.bool,
   ]).isRequired,
   saveFileInitAct: PropTypes.func.isRequired,
+  predictSt: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]).isRequired,
+  predictByPeaksInitAct: PropTypes.func.isRequired,
 };
 
 export default connect(
