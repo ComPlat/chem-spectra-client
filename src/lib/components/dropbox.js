@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Dropzone from 'react-dropzone';
 
-import { addFile } from '../actions/action_file';
+import { addFileInit } from '../actions/action_file';
 
 const baseStyle = {
   border: '2px dashed blue',
@@ -19,10 +19,10 @@ const baseStyle = {
 const msgDefault = 'Drop File, or Click to add File.';
 
 const Dropbox = ({
-  srcFileSt, addFileAct,
+  srcFileSt, addFileInitAct,
 }) => {
   const filename = srcFileSt && srcFileSt.name;
-  const onDrop = files => addFileAct({ file: files[0] });
+  const onDrop = files => addFileInitAct({ file: files[0] });
 
   return (
     <Dropzone
@@ -52,12 +52,12 @@ const mapStateToProps = (state, props) => ( // eslint-disable-line
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
-    addFileAct: addFile,
+    addFileInitAct: addFileInit,
   }, dispatch)
 );
 
 Dropbox.propTypes = {
-  addFileAct: PropTypes.func.isRequired,
+  addFileInitAct: PropTypes.func.isRequired,
   srcFileSt: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.bool,

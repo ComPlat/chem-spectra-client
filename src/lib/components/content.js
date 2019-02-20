@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { SpectraViewer, FN } from 'react-spectra-viewer';
 
-import { saveFile } from '../actions/action_file';
+import { saveFileInit } from '../actions/action_file';
 
 const titleStyle = {
   backgroundColor: '#f5f5f5',
@@ -68,11 +68,11 @@ class Content extends React.Component {
   }
 
   savePeaks(peaks, layout, shift) {
-    const { saveFileAct } = this.props;
+    const { saveFileInitAct } = this.props;
     const fPeaks = FN.rmRef(peaks, shift);
     const peakStr = FN.toPeakStr(fPeaks);
 
-    saveFileAct({ peakStr, shift });
+    saveFileInitAct({ peakStr, shift });
   }
 
   render() {
@@ -116,7 +116,7 @@ const mapStateToProps = (state, props) => ( // eslint-disable-line
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
-    saveFileAct: saveFile,
+    saveFileInitAct: saveFileInit,
   }, dispatch)
 );
 
@@ -125,7 +125,7 @@ Content.propTypes = {
     PropTypes.object,
     PropTypes.bool,
   ]).isRequired,
-  saveFileAct: PropTypes.func.isRequired,
+  saveFileInitAct: PropTypes.func.isRequired,
 };
 
 export default connect(

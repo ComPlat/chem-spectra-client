@@ -22,10 +22,10 @@ const updateConversion = (state, action) => {
 
 const fileReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FILE.CONVERT_GOOD:
+    case FILE.CONVERT_DONE:
       return updateConversion(state, action);
-    case FILE.ADD_BAD:
-    case FILE.CONVERT_BAD:
+    case FILE.ADD_FAIL:
+    case FILE.CONVERT_FAIL:
       return Object.assign({}, state, initialState);
     default:
       return state;

@@ -22,11 +22,11 @@ const errFileState = {
 
 const noticeReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FILE.ADD_BAD:
+    case FILE.ADD_FAIL:
       return Object.assign({}, state, errFileState);
-    case FILE.CONVERT_GOOD:
+    case FILE.CONVERT_DONE:
       return Object.assign({}, state, sucConversionState);
-    case FILE.CONVERT_BAD:
+    case FILE.CONVERT_FAIL:
       return Object.assign({}, state, errConversionState);
     case NOTICE.MANUAL_CLEAR:
       return Object.assign({}, state, initialState);

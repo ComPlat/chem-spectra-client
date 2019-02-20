@@ -4,12 +4,12 @@ const initialState = false;
 
 const loadingReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FILE.ADD:
-    case FILE.SAVE:
+    case FILE.ADD_INIT:
+    case FILE.SAVE_INIT:
       return true;
-    case FILE.CONVERT_GOOD:
-    case FILE.CONVERT_BAD:
-    case FILE.ADD_BAD:
+    case FILE.CONVERT_DONE:
+    case FILE.CONVERT_FAIL:
+    case FILE.ADD_FAIL:
     case FILE.SAVE_DONE:
       return false;
     default:

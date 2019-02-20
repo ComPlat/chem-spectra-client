@@ -16,12 +16,12 @@ function* analysisFile(action) {
 
   if (isValidExt && isValidSize) {
     yield put({
-      type: FILE.CONVERT,
+      type: FILE.CONVERT_INIT,
       payload,
     });
   } else {
     yield put({
-      type: FILE.ADD_BAD,
+      type: FILE.ADD_FAIL,
       payload,
     });
   }
@@ -38,12 +38,12 @@ function* convertFile(action) {
     const raw = base64.decode(jcamp);
     const jcampData = FN.ExtractJcamp(raw);
     yield put({
-      type: FILE.CONVERT_GOOD,
+      type: FILE.CONVERT_DONE,
       payload: Object.assign({}, { file, img, jcamp: jcampData }),
     });
   } else {
     yield put({
-      type: FILE.CONVERT_BAD,
+      type: FILE.CONVERT_FAIL,
       payload,
     });
   }
@@ -66,9 +66,9 @@ function* saveFile(action) {
 }
 
 const fileSagas = [
-  takeEvery(FILE.ADD, analysisFile),
-  takeEvery(FILE.CONVERT, convertFile),
-  takeEvery(FILE.SAVE, saveFile),
+  takeEvery(FILE.ADD_INIT, analysisFile),
+  takeEvery(FILE.CONVERT_INIT, convertFile),
+  takeEvery(FILE.SAVE_INIT, saveFile),
 ];
 
 export default fileSagas;

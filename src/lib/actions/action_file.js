@@ -1,24 +1,24 @@
 import { FILE } from '../constants/action_type';
 
-const addFile = payload => (
+const addFileInit = payload => (
   {
-    type: FILE.ADD,
+    type: FILE.ADD_INIT,
     payload,
   }
 );
 
-const convertFile = payload => (
+const convertFileInit = payload => (
   {
-    type: FILE.CONVERT,
+    type: FILE.CONVERT_INIT,
     payload,
   }
 );
 
-const saveFile = payload => (
+const saveFileInit = payload => (
   {
-    type: FILE.SAVE,
+    type: FILE.SAVE_INIT,
     payload,
   }
 );
 
-export { addFile, convertFile, saveFile };
+export { addFileInit, convertFileInit, saveFileInit };
