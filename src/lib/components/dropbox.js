@@ -9,8 +9,9 @@ import { addFileInit } from '../actions/action_file';
 const baseStyle = {
   border: '2px dashed blue',
   borderRadius: 5,
-  height: 50,
-  lineHeight: '45px',
+  height: 30,
+  lineHeight: '30px',
+  margin: '0 0 10px 0',
   textAlign: 'center',
   verticalAlign: 'middle',
   width: '100%',
