@@ -4,7 +4,7 @@ const byPeaks = (payload) => {
   const jsonData = JSON.stringify(payload);
 
   const promise = fetch(
-    '/api/v1/chemspectra/predict/byPeaks',
+    '/api/v1/chemspectra/predict/by_peaks',
     {
       credentials: 'same-origin',
       headers: {
