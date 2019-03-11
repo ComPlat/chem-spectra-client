@@ -1,21 +1,39 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
 
 import Content from './components/content';
 import Dropbox from './components/dropbox';
+import RawInput from './components/raw_input';
 import Loading from './components/loading';
 import Notice from './components/notice';
 
-const Frame = () => (
+const styles = () => ({
+  root: {
+    flexGrow: 1,
+  },
+});
+
+const Frame = ({ classes }) => (
   <div>
-    <div>
-      <Dropbox />
-    </div>
-    <div>
-      <Content />
-    </div>
+    <Grid container className={classes.root} spacing={24}>
+      <Grid key="grid-dropbox" item xs={9}>
+        <Dropbox />
+      </Grid>
+      <Grid key="grid-raw-input" item xs={3}>
+        <RawInput />
+      </Grid>
+    </Grid>
+    <Content />
     <Notice />
     <Loading />
   </div>
 );
 
-export default Frame;
+Frame.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Frame);

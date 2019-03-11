@@ -1,4 +1,4 @@
-import { FILE } from '../constants/action_type';
+import { FILE, RAW } from '../constants/action_type';
 
 const initialState = {
   src: false,
@@ -20,8 +20,24 @@ const updateConversion = (state, action) => {
   );
 };
 
+const insertFile = (state, action) => {
+  const { payload } = action;
+  const { file } = payload;
+  return Object.assign(
+    {},
+    state,
+    {
+      src: file,
+      jcamp: false,
+      img: false,
+    },
+  );
+};
+
 const fileReducer = (state = initialState, action) => {
   switch (action.type) {
+    case RAW.INSERT:
+      return insertFile(state, action);
     case FILE.CONVERT_DONE:
       return updateConversion(state, action);
     case FILE.ADD_FAIL:

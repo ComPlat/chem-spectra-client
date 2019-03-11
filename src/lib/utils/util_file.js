@@ -1,4 +1,4 @@
-const VerifyExt = (file) => {
+const VerifyJcampExt = (file) => {
   const filename = file && file.name;
   if (!filename) return false;
   const last = filename.split('.').length - 1;
@@ -6,6 +6,17 @@ const VerifyExt = (file) => {
   const acceptables = ['jdx', 'JDX', 'dx', 'DX', 'JCAMP', 'jcamp'];
   return acceptables.indexOf(ext) >= 0;
 };
+
+
+const VerifyRawExt = (file) => {
+  const filename = file && file.name;
+  if (!filename) return false;
+  const last = filename.split('.').length - 1;
+  const ext = filename.split('.')[last];
+  const acceptables = ['raw', 'RAW'];
+  return acceptables.indexOf(ext) >= 0;
+};
+
 
 const kb = 1024;
 const mb = 1024 * kb;
@@ -18,4 +29,5 @@ const VerifySize = (file) => {
   return filesize <= sizeLimit;
 };
 
-export { VerifyExt, VerifySize }; // eslint-disable-line
+
+export { VerifyJcampExt, VerifyRawExt, VerifySize };

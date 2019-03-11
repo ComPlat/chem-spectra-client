@@ -4,19 +4,25 @@ import {
 } from 'redux-saga/effects';
 import { FN } from 'react-spectra-viewer';
 
-import { FILE } from '../constants/action_type';
-import { VerifyExt, VerifySize } from '../utils/util_file';
+import { FILE, RAW } from '../constants/action_type';
+import { VerifyJcampExt, VerifyRawExt, VerifySize } from '../utils/util_file';
 import FetcherFile from '../fetchers/fetcher_file';
 
 function* analysisFile(action) {
   const { payload } = action;
   const { file } = payload;
-  const isValidExt = VerifyExt(file);
+  const isValidJcampExt = VerifyJcampExt(file);
+  const isValidRawExt = VerifyRawExt(file);
   const isValidSize = VerifySize(file);
 
-  if (isValidExt && isValidSize) {
+  if (isValidJcampExt && isValidSize) {
     yield put({
       type: FILE.CONVERT_INIT,
+      payload,
+    });
+  } else if (isValidRawExt && isValidSize) {
+    yield put({
+      type: RAW.INSERT,
       payload,
     });
   } else {
@@ -27,11 +33,14 @@ function* analysisFile(action) {
   }
 }
 
+const getRawScan = state => state.raw.scan;
+
 function* convertFile(action) {
   const { payload } = action;
   const { file } = payload;
 
-  const rsp = yield call(FetcherFile.convertFile, file);
+  const scan = yield select(getRawScan);
+  const rsp = yield call(FetcherFile.convertFile, { file, scan });
 
   if (rsp && rsp.status) {
     const { jcamp, img } = rsp;
@@ -68,6 +77,7 @@ function* saveFile(action) {
 const fileSagas = [
   takeEvery(FILE.ADD_INIT, analysisFile),
   takeEvery(FILE.CONVERT_INIT, convertFile),
+  takeEvery(RAW.SUBMIT, convertFile),
   takeEvery(FILE.SAVE_INIT, saveFile),
 ];
 
