@@ -35,10 +35,11 @@ function* analysisFile(action) {
 
 const getRawScan = state => state.raw.scan;
 
+const getFileSrc = state => state.file.src;
+
 function* convertFile(action) {
   const { payload } = action;
-  const { file } = payload;
-
+  const file = payload.file || (yield select(getFileSrc));
   const scan = yield select(getRawScan);
   const rsp = yield call(FetcherFile.convertFile, { file, scan });
 
@@ -57,8 +58,6 @@ function* convertFile(action) {
     });
   }
 }
-
-const getFileSrc = state => state.file.src;
 
 function* saveFile(action) {
   const { payload } = action;

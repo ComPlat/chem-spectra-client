@@ -7,6 +7,7 @@ const loadingReducer = (state = initialState, action) => {
     case FILE.ADD_INIT:
     case FILE.SAVE_INIT:
     case PREDICT.BY_PEAKS_INIT:
+    case RAW.SUBMIT:
       return true;
     case RAW.INSERT:
     case FILE.CONVERT_DONE:

@@ -1,6 +1,7 @@
 import { camelizeKeys } from 'humps';
 
-const convertFile = ({ file, scan }) => {
+const convertFile = (target) => {
+  const { file, scan } = target;
   const data = new FormData();
   data.append('file', file);
   data.append('scan', scan);
