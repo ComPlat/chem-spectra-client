@@ -13,8 +13,16 @@ const VerifyRawExt = (file) => {
   if (!filename) return false;
   const last = filename.split('.').length - 1;
   const ext = filename.split('.')[last];
-  const acceptables = ['raw', 'RAW'];
-  return acceptables.indexOf(ext) >= 0;
+  return ext.toLowerCase() === 'raw';
+};
+
+
+const VerifyMolExt = (mol) => {
+  const molName = mol && mol.name;
+  if (!molName) return false;
+  const last = molName.split('.').length - 1;
+  const ext = molName.split('.')[last];
+  return ext.toLowerCase() === 'mol';
 };
 
 
@@ -30,4 +38,6 @@ const VerifySize = (file) => {
 };
 
 
-export { VerifyJcampExt, VerifyRawExt, VerifySize };
+export {
+  VerifyJcampExt, VerifyRawExt, VerifyMolExt, VerifySize,
+};

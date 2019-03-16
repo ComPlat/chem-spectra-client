@@ -5,8 +5,9 @@ import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 
 import Content from './components/content';
-import Dropbox from './components/dropbox';
-import RawInput from './components/raw_input';
+import InputMol from './components/input_mol';
+import InputFile from './components/input_file';
+import InputForm from './components/input_form';
 import Loading from './components/loading';
 import Notice from './components/notice';
 
@@ -19,11 +20,14 @@ const styles = () => ({
 const Frame = ({ classes }) => (
   <div>
     <Grid container className={classes.root} spacing={24}>
-      <Grid key="grid-dropbox" item xs={9}>
-        <Dropbox />
+      <Grid key="grid-drop-mol" item xs={4}>
+        <InputMol />
       </Grid>
-      <Grid key="grid-raw-input" item xs={3}>
-        <RawInput />
+      <Grid key="grid-drop-file" item xs={4}>
+        <InputFile />
+      </Grid>
+      <Grid key="grid-form-input" item xs={4}>
+        <InputForm />
       </Grid>
     </Grid>
     <Content />

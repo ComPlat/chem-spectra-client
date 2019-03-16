@@ -160,15 +160,12 @@ const mapDispatchToProps = dispatch => (
 );
 
 Content.propTypes = {
-  fileSt: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.bool,
-  ]).isRequired,
-  saveFileInitAct: PropTypes.func.isRequired,
+  fileSt: PropTypes.object.isRequired,
   predictSt: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.bool,
   ]).isRequired,
+  saveFileInitAct: PropTypes.func.isRequired,
   predictByPeaksInitAct: PropTypes.func.isRequired,
 };
 

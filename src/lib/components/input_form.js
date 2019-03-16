@@ -11,17 +11,22 @@ import IconButton from '@material-ui/core/IconButton';
 import Refresh from '@material-ui/icons/Refresh';
 import Send from '@material-ui/icons/Send';
 
-import { VerifyRawExt } from '../utils/util_file';
 import {
-  updateRawScan, clearRawScan, submitRaw,
-} from '../actions/action_raw';
+  VerifyRawExt, VerifyJcampExt,
+} from '../utils/util_file';
+import {
+  updateFormScan, clearFormScan, submitForm,
+} from '../actions/action_form';
 
 const styles = () => ({
+  root: {
+    float: 'right',
+  },
   btnRefresh: {
   },
   btnSubmit: {
   },
-  rawInput: {
+  formInput: {
   },
   icon: {
   },
@@ -31,28 +36,28 @@ const styles = () => ({
 });
 
 const btnRefresh = (
-  classes, isValidRawExt, clearRawScanAct,
+  classes, isValidRawExt, clearFormScanAct,
 ) => (
   <IconButton
     disabled={!isValidRawExt}
     variant="fab"
     color="primary"
     className={classNames(classes.btnRefresh)}
-    onClick={clearRawScanAct}
+    onClick={clearFormScanAct}
   >
     <Refresh />
   </IconButton>
 );
 
 const btnSubmit = (
-  classes, isValidRawExt, submitRawAct,
+  classes, isValidExt, submitFormAct,
 ) => (
   <IconButton
-    disabled={!isValidRawExt}
+    disabled={!isValidExt}
     variant="fab"
     color="primary"
     className={classNames(classes.btnRefresh)}
-    onClick={submitRawAct}
+    onClick={submitFormAct}
   >
     <Send className={classNames(classes.icon)} />
   </IconButton>
@@ -69,16 +74,19 @@ const tpRawInput = classes => (
   </span>
 );
 
-const RawInput = ({
-  classes, fileSt, rawSt, updateRawScanAct, clearRawScanAct, submitRawAct,
+const InputSubmit = ({
+  classes, fileSt, formSt,
+  updateFormScanAct, clearFormScanAct, submitFormAct,
 }) => {
   const { src } = fileSt;
-  const { scan } = rawSt;
+  const { scan } = formSt;
   const isValidRawExt = VerifyRawExt(src);
-  const onChange = e => updateRawScanAct({ scan: e.target.value });
+  const isValidJcampExt = VerifyJcampExt(src);
+  const isValidExt = isValidRawExt || isValidJcampExt;
+  const onChange = e => updateFormScanAct({ scan: e.target.value });
 
   return (
-    <div>
+    <div className={classNames(classes.root)}>
       <Tooltip
         title={tpRawInput(classes)}
         placement="bottom"
@@ -86,7 +94,7 @@ const RawInput = ({
         disableTouchListener
       >
         <TextField
-          className={classNames(classes.rawInput)}
+          className={classNames(classes.formInput)}
           disabled={!isValidRawExt}
           id="outlined-name"
           label="Mass Spectrum Scan"
@@ -96,8 +104,8 @@ const RawInput = ({
           onChange={onChange}
         />
       </Tooltip>
-      { btnRefresh(classes, isValidRawExt, clearRawScanAct) }
-      { btnSubmit(classes, isValidRawExt, submitRawAct) }
+      { btnRefresh(classes, isValidRawExt, clearFormScanAct) }
+      { btnSubmit(classes, isValidExt, submitFormAct) }
     </div>
   );
 };
@@ -105,31 +113,28 @@ const RawInput = ({
 const mapStateToProps = (state, props) => ( // eslint-disable-line
   {
     fileSt: state.file,
-    rawSt: state.raw,
+    formSt: state.form,
   }
 );
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
-    updateRawScanAct: updateRawScan,
-    clearRawScanAct: clearRawScan,
-    submitRawAct: submitRaw,
+    updateFormScanAct: updateFormScan,
+    clearFormScanAct: clearFormScan,
+    submitFormAct: submitForm,
   }, dispatch)
 );
 
-RawInput.propTypes = {
-  fileSt: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.bool,
-  ]).isRequired,
-  rawSt: PropTypes.object.isRequired,
-  updateRawScanAct: PropTypes.func.isRequired,
-  clearRawScanAct: PropTypes.func.isRequired,
-  submitRawAct: PropTypes.func.isRequired,
+InputSubmit.propTypes = {
+  fileSt: PropTypes.object.isRequired,
+  formSt: PropTypes.object.isRequired,
+  updateFormScanAct: PropTypes.func.isRequired,
+  clearFormScanAct: PropTypes.func.isRequired,
+  submitFormAct: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(withStyles(styles)(RawInput));
+)(withStyles(styles)(InputSubmit));
