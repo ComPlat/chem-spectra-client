@@ -7,13 +7,6 @@ const addFileInit = payload => (
   }
 );
 
-const convertFileInit = payload => (
-  {
-    type: FILE.CONVERT_INIT,
-    payload,
-  }
-);
-
 const saveFileInit = payload => (
   {
     type: FILE.SAVE_INIT,
@@ -21,4 +14,6 @@ const saveFileInit = payload => (
   }
 );
 
-export { addFileInit, convertFileInit, saveFileInit };
+export {
+  addFileInit, saveFileInit, // eslint-disable-line
+};

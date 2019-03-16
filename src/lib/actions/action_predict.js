@@ -7,4 +7,6 @@ const predictByPeaksInit = payload => (
   }
 );
 
-export { predictByPeaksInit }; // eslint-disable-line
+export {
+  predictByPeaksInit, // eslint-disable-line
+};

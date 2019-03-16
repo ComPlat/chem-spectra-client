@@ -7,4 +7,6 @@ const manualClear = payload => (
   }
 );
 
-export { manualClear }; // eslint-disable-line
+export {
+  manualClear, // eslint-disable-line
+};
