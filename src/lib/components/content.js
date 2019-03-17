@@ -41,7 +41,6 @@ class Content extends React.Component {
 
     this.state = {
       desc: '',
-      molecule: '',
     };
 
     this.writePeaks = this.writePeaks.bind(this);
@@ -81,10 +80,10 @@ class Content extends React.Component {
   }
 
   predict(peaks, layout, _) { // eslint-disable-line
-    const { predictByPeaksInitAct } = this.props;
-    const { molecule } = this.state;
+    const { predictByPeaksInitAct, molSt } = this.props;
+    const molfile = molSt.src;
 
-    predictByPeaksInitAct({ molecule, peaks, layout });
+    predictByPeaksInitAct({ molecule: molfile, peaks, layout });
   }
 
   // updatInput(e) {
@@ -93,13 +92,12 @@ class Content extends React.Component {
   // }
 
   buildPredictObj() {
-    const { molecule } = this.state;
-    const { predictSt } = this.props;
+    const { molSt, predictSt } = this.props;
 
     const predictObj = {
       btnCb: this.predict,
       // inputCb: this.updatInput,
-      molecule,
+      molecule: molSt.src,
       predictions: predictSt.result,
     };
     return predictObj;
@@ -147,6 +145,7 @@ class Content extends React.Component {
 
 const mapStateToProps = (state, props) => ( // eslint-disable-line
   {
+    molSt: state.mol,
     fileSt: state.file,
     predictSt: state.predict,
   }
@@ -160,6 +159,7 @@ const mapDispatchToProps = dispatch => (
 );
 
 Content.propTypes = {
+  molSt: PropTypes.object.isRequired,
   fileSt: PropTypes.object.isRequired,
   predictSt: PropTypes.oneOfType([
     PropTypes.object,
