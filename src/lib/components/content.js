@@ -83,7 +83,7 @@ class Content extends React.Component {
     const { predictByPeaksInitAct, molSt } = this.props;
     const molfile = molSt.src;
 
-    predictByPeaksInitAct({ molecule: molfile, peaks, layout });
+    predictByPeaksInitAct({ molfile, peaks, layout });
   }
 
   // updatInput(e) {

@@ -1,18 +1,18 @@
 import { camelizeKeys } from 'humps';
 
 const byPeaks = (payload) => {
-  const jsonData = JSON.stringify(payload);
+  const { molfile, peaks, layout } = payload;
+  const data = new FormData();
+  data.append('molfile', molfile);
+  data.append('peaks', peaks);
+  data.append('layout', layout);
 
   const promise = fetch(
-    '/api/v1/chemspectra/predict/by_peaks',
+    '/api/v1/chemspectra/predict/by_peaks_form',
     {
       credentials: 'same-origin',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
       method: 'post',
-      body: jsonData,
+      body: data,
     },
   ).then(response => response.json())
     .then(json => camelizeKeys(json))
