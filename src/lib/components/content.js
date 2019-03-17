@@ -47,7 +47,7 @@ class Content extends React.Component {
     this.writePeaks = this.writePeaks.bind(this);
     this.savePeaks = this.savePeaks.bind(this);
     this.predict = this.predict.bind(this);
-    this.updatInput = this.updatInput.bind(this);
+    // this.updatInput = this.updatInput.bind(this);
     this.buildPredictObj = this.buildPredictObj.bind(this);
   }
 
@@ -87,10 +87,10 @@ class Content extends React.Component {
     predictByPeaksInitAct({ molecule, peaks, layout });
   }
 
-  updatInput(e) {
-    const molecule = e.target.value;
-    this.setState({ molecule });
-  }
+  // updatInput(e) {
+  //   const molecule = e.target.value;
+  //   this.setState({ molecule });
+  // }
 
   buildPredictObj() {
     const { molecule } = this.state;
@@ -98,7 +98,7 @@ class Content extends React.Component {
 
     const predictObj = {
       btnCb: this.predict,
-      inputCb: this.updatInput,
+      // inputCb: this.updatInput,
       molecule,
       predictions: predictSt.result,
     };
