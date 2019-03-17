@@ -6,12 +6,16 @@ import Dropzone from 'react-dropzone';
 import classNames from 'classnames';
 
 import { withStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import { addMolInit } from '../actions/action_mol';
 
 const styles = () => ({
+  root: {
+    flexGrow: 1,
+  },
   baseDD: {
-    border: '2px dashed blue',
+    border: '2px dashed #000',
     borderRadius: 5,
     height: 40,
     lineHeight: '40px',
@@ -20,7 +24,23 @@ const styles = () => ({
     verticalAlign: 'middle',
     width: '100%',
   },
+  tpCard: {
+  },
+  tpLabel: {
+    fontSize: 16,
+  },
 });
+
+const tpHint = classes => (
+  <span className={classNames(classes.tpCard)}>
+    <p className={classNames(classes.tpLabel, 'txt-sv-tp')}>
+      - Accept *.mol
+    </p>
+    <p className={classNames(classes.tpLabel, 'txt-sv-tp')}>
+      - Max 10Mb
+    </p>
+  </span>
+);
 
 const msgDefault = 'Add Molfile';
 
@@ -33,6 +53,15 @@ const showByMolfile = (molSt) => {
 
   return msgDefault;
 };
+
+const content = (classes, desc) => (
+  <Tooltip
+    title={tpHint(classes)}
+    placement="bottom"
+  >
+    <span>{desc}</span>
+  </Tooltip>
+);
 
 const InputMol = ({
   classes, molSt, addMolInitAct,
@@ -53,7 +82,7 @@ const InputMol = ({
             className={classNames(classes.baseDD)}
           >
             <input {...getInputProps()} />
-            { desc }
+            { content(classes, desc) }
           </div>
         )
       }

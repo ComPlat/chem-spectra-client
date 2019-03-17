@@ -6,10 +6,14 @@ import Dropzone from 'react-dropzone';
 import classNames from 'classnames';
 
 import { withStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import { addFileInit } from '../actions/action_file';
 
 const styles = () => ({
+  root: {
+    flexGrow: 1,
+  },
   baseDD: {
     borderRadius: 5,
     height: 40,
@@ -20,16 +24,41 @@ const styles = () => ({
     width: '100%',
   },
   enableDD: {
-    border: '2px dashed blue',
+    border: '2px dashed #000',
     color: '#000',
   },
   disableDD: {
     border: '2px dashed #aaa',
     color: '#aaa',
   },
+  tpCard: {
+  },
+  tpLabel: {
+    fontSize: 16,
+  },
 });
 
+const tpHint = classes => (
+  <span className={classNames(classes.tpCard)}>
+    <p className={classNames(classes.tpLabel, 'txt-sv-tp')}>
+      - Accept *.dx, *.jdx, *.JCAMP, *.RAW
+    </p>
+    <p className={classNames(classes.tpLabel, 'txt-sv-tp')}>
+      - Max 10Mb
+    </p>
+  </span>
+);
+
 const msgDefault = 'Add Spectrum';
+
+const content = (classes, desc) => (
+  <Tooltip
+    title={tpHint(classes)}
+    placement="bottom"
+  >
+    <span>{desc}</span>
+  </Tooltip>
+);
 
 const InputFile = ({
   classes, srcMolSt, srcFileSt, addFileInitAct,
@@ -37,6 +66,7 @@ const InputFile = ({
   const fileName = srcFileSt && srcFileSt.name;
   const onDrop = files => addFileInitAct({ file: files[0] });
   const addOnCls = srcMolSt ? classes.enableDD : classes.disableDD;
+  const desc = fileName || msgDefault;
 
   return (
     <Dropzone
@@ -51,7 +81,7 @@ const InputFile = ({
             className={classNames(classes.baseDD, addOnCls)}
           >
             <input {...getInputProps()} />
-            { fileName || msgDefault }
+            { content(classes, desc) }
           </div>
         )
       }

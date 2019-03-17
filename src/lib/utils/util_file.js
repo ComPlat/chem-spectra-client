@@ -3,8 +3,8 @@ const VerifyJcampExt = (file) => {
   if (!filename) return false;
   const last = filename.split('.').length - 1;
   const ext = filename.split('.')[last];
-  const acceptables = ['jdx', 'JDX', 'dx', 'DX', 'JCAMP', 'jcamp'];
-  return acceptables.indexOf(ext) >= 0;
+  const acceptables = ['jdx', 'dx', 'jcamp'];
+  return acceptables.indexOf(ext.toLowerCase()) >= 0;
 };
 
 
