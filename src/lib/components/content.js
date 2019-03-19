@@ -79,11 +79,13 @@ class Content extends React.Component {
     saveFileInitAct({ peakStr, shift });
   }
 
-  predict(peaks, layout, _) { // eslint-disable-line
+  predict(peaks, layout, shift) {
     const { predictByPeaksInitAct, molSt } = this.props;
     const molfile = molSt.src;
 
-    predictByPeaksInitAct({ molfile, peaks, layout });
+    predictByPeaksInitAct({
+      molfile, peaks, layout, shift,
+    });
   }
 
   // updatInput(e) {

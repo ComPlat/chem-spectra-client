@@ -1,11 +1,16 @@
 import { camelizeKeys } from 'humps';
 
 const byPeaks = (payload) => {
-  const { molfile, peaks, layout } = payload;
+  const {
+    molfile, peaks, layout, shift,
+  } = payload;
+  const jsonPeaks = JSON.stringify(peaks);
+  const jsonShift = JSON.stringify(shift);
   const data = new FormData();
   data.append('molfile', molfile);
-  data.append('peaks', peaks);
   data.append('layout', layout);
+  data.append('peaks', jsonPeaks);
+  data.append('shift', jsonShift);
 
   const promise = fetch(
     '/api/v1/chemspectra/predict/by_peaks_form',
