@@ -20,7 +20,7 @@ const styles = () => ({
 const Frame = ({ classes }) => (
   <div>
     <Grid container className={classes.root} spacing={24}>
-      <Grid key="grid-drop-file" item xs={1} />
+      <Grid key="grid-drop-space" item xs={1} />
       <Grid key="grid-drop-mol" item xs={5}>
         <InputMol />
       </Grid>

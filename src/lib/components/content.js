@@ -111,7 +111,7 @@ class Content extends React.Component {
     if (!fileSt) return renderTitle();
 
     const {
-      input, xLabel, yLabel, peakObjs, isExist,
+      entity, xLabel, yLabel, isExist,
     } = FN.buildData(fileSt.jcamp);
     if (!isExist) return renderTitle();
 
@@ -125,10 +125,9 @@ class Content extends React.Component {
     return (
       <div>
         <SpectraViewer
-          input={input}
+          entity={entity}
           xLabel={xLabel}
           yLabel={yLabel}
-          peakObjs={peakObjs}
           predictObj={predictObj}
           operations={operations}
         />
