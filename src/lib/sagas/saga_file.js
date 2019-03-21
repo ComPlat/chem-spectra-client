@@ -29,10 +29,13 @@ function* analysisFile(action) {
 
 const getFileSrc = state => state.file.src;
 
+const getMolMass = state => state.mol.mass;
+
 function* convertFile(action) {
   const { payload } = action;
   const file = payload.file || (yield select(getFileSrc));
-  const rsp = yield call(FetcherFile.convertFile, { file });
+  const mass = payload.file || (yield select(getMolMass));
+  const rsp = yield call(FetcherFile.convertFile, { file, mass });
 
   if (rsp && rsp.status) {
     const { jcamp, img } = rsp;

@@ -1,9 +1,10 @@
 import { camelizeKeys } from 'humps';
 
 const convertFile = (target) => {
-  const { file } = target;
+  const { file, mass } = target;
   const data = new FormData();
   data.append('file', file);
+  data.append('mass', mass);
 
   const promise = fetch(
     '/api/v1/chemspectra/file/convert',
