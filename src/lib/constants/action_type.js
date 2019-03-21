@@ -27,8 +27,6 @@ const PREDICT = {
 };
 
 const FORM = {
-  UPDATE_SCAN: 'FORM_UPDATE_SCAN',
-  CLEAR_SCAN: 'FORM_CLEAR_SCAN',
   SUBMIT: 'FORM_SUBMIT',
 };
 

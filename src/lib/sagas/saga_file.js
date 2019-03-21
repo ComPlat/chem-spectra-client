@@ -27,15 +27,12 @@ function* analysisFile(action) {
   }
 }
 
-const getFormScan = state => state.form.scan;
-
 const getFileSrc = state => state.file.src;
 
 function* convertFile(action) {
   const { payload } = action;
   const file = payload.file || (yield select(getFileSrc));
-  const scan = yield select(getFormScan);
-  const rsp = yield call(FetcherFile.convertFile, { file, scan });
+  const rsp = yield call(FetcherFile.convertFile, { file });
 
   if (rsp && rsp.status) {
     const { jcamp, img } = rsp;
