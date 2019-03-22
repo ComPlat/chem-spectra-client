@@ -72,11 +72,12 @@ class Content extends React.Component {
   }
 
   savePeaks(peaks, layout, shift) {
-    const { saveFileInitAct } = this.props;
+    const { saveFileInitAct, molSt } = this.props;
+    const { mass } = molSt;
     const fPeaks = FN.rmRef(peaks, shift);
     const peakStr = FN.toPeakStr(fPeaks);
 
-    saveFileInitAct({ peakStr, shift });
+    saveFileInitAct({ peakStr, shift, mass });
   }
 
   predict(peaks, layout, shift) {
