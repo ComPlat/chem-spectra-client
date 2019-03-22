@@ -41,7 +41,7 @@ const styles = () => ({
 const tpHint = classes => (
   <span className={classNames(classes.tpCard)}>
     <p className={classNames(classes.tpLabel, 'txt-sv-tp')}>
-      - Accept *.dx, *.jdx, *.JCAMP, *.RAW
+      - Accept *.dx, *.jdx, *.JCAMP, *.RAW, *.mzML
     </p>
     <p className={classNames(classes.tpLabel, 'txt-sv-tp')}>
       - Max 10Mb

@@ -8,12 +8,13 @@ const VerifyJcampExt = (file) => {
 };
 
 
-const VerifyRawExt = (file) => {
+const VerifyMsExt = (file) => {
   const filename = file && file.name;
   if (!filename) return false;
   const last = filename.split('.').length - 1;
   const ext = filename.split('.')[last];
-  return ext.toLowerCase() === 'raw';
+  const acceptables = ['raw', 'mzml'];
+  return acceptables.indexOf(ext.toLowerCase()) >= 0;
 };
 
 
@@ -39,5 +40,5 @@ const VerifySize = (file) => {
 
 
 export {
-  VerifyJcampExt, VerifyRawExt, VerifyMolExt, VerifySize,
+  VerifyJcampExt, VerifyMsExt, VerifyMolExt, VerifySize,
 };

@@ -5,13 +5,13 @@ import {
 import { FN } from 'react-spectra-viewer';
 
 import { FILE, FORM } from '../constants/action_type';
-import { VerifyJcampExt, VerifyRawExt, VerifySize } from '../utils/util_file';
+import { VerifyJcampExt, VerifyMsExt, VerifySize } from '../utils/util_file';
 import FetcherFile from '../fetchers/fetcher_file';
 
 function* analysisFile(action) {
   const { payload } = action;
   const { file } = payload;
-  const isValidExt = VerifyJcampExt(file) || VerifyRawExt(file);
+  const isValidExt = VerifyJcampExt(file) || VerifyMsExt(file);
   const isValidSize = VerifySize(file);
 
   if (isValidExt && isValidSize) {

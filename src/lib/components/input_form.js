@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Send from '@material-ui/icons/Send';
 
 import {
-  VerifyRawExt, VerifyJcampExt,
+  VerifyMsExt, VerifyJcampExt,
 } from '../utils/util_file';
 import {
   submitForm,
@@ -51,9 +51,9 @@ const InputForm = ({
   submitFormAct,
 }) => {
   const { src } = fileSt;
-  const isValidRawExt = VerifyRawExt(src);
+  const isValidMsExt = VerifyMsExt(src);
   const isValidJcampExt = VerifyJcampExt(src);
-  const isValidExt = isValidRawExt || isValidJcampExt;
+  const isValidExt = isValidMsExt || isValidJcampExt;
 
   return (
     <div className={classNames(classes.root)}>
