@@ -43,8 +43,8 @@ class Content extends React.Component {
       desc: '',
     };
 
-    this.writePeaks = this.writePeaks.bind(this);
-    this.savePeaks = this.savePeaks.bind(this);
+    this.writeOp = this.writeOp.bind(this);
+    this.saveOp = this.saveOp.bind(this);
     this.predict = this.predict.bind(this);
     // this.updatInput = this.updatInput.bind(this);
     this.buildPredictObj = this.buildPredictObj.bind(this);
@@ -64,20 +64,26 @@ class Content extends React.Component {
     return target.replace(/\$/g, '');
   }
 
-  writePeaks(peaks, layout, shift, isAscend) {
+  writeOp({
+    peaks, layout, shift, isAscend,
+  }) {
     const body = FN.peaksBody(peaks, layout, shift, isAscend);
     const wrapper = FN.peaksWrapper(layout, shift);
     const desc = this.rmDollarSign(wrapper.head) + body + wrapper.tail;
     this.setState({ desc });
   }
 
-  savePeaks(peaks, layout, shift) {
+  saveOp({
+    peaks, shift, scan, thres,
+  }) {
     const { saveFileInitAct, molSt } = this.props;
     const { mass } = molSt;
     const fPeaks = FN.rmRef(peaks, shift);
     const peakStr = FN.toPeakStr(fPeaks);
 
-    saveFileInitAct({ peakStr, shift, mass });
+    saveFileInitAct({
+      peakStr, shift, mass, scan, thres,
+    });
   }
 
   predict(peaks, layout, shift) {
@@ -117,8 +123,8 @@ class Content extends React.Component {
     if (!isExist) return renderTitle();
 
     const operations = [
-      { name: 'save peaks', value: this.savePeaks },
-      { name: 'write peaks', value: this.writePeaks },
+      { name: 'save', value: this.saveOp },
+      { name: 'write', value: this.writeOp },
     ].filter(r => r.value);
 
     const predictObj = this.buildPredictObj();
