@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { SpectraViewer, FN } from 'react-spectra-viewer';
 
 import { saveFileInit } from '../actions/action_file';
-import { predictByPeaksInit } from '../actions/action_predict';
+import { predictInit } from '../actions/action_predict';
 
 const titleStyle = {
   backgroundColor: '#f5f5f5',
@@ -87,11 +87,11 @@ class Content extends React.Component {
   }
 
   predict(peaks, layout, shift) {
-    const { predictByPeaksInitAct, molSt } = this.props;
+    const { predictInitAct, molSt, fileSt } = this.props;
     const molfile = molSt.src;
 
-    predictByPeaksInitAct({
-      molfile, peaks, layout, shift,
+    predictInitAct({
+      molfile, peaks, layout, shift, spectrum: fileSt.src,
     });
   }
 
@@ -106,7 +106,7 @@ class Content extends React.Component {
     const predictObj = {
       btnCb: this.predict,
       // inputCb: this.updatInput,
-      molecule: molSt.src,
+      molecule: molSt.src ? molSt.src.name : '',
       predictions: predictSt.result,
     };
     return predictObj;
@@ -162,7 +162,7 @@ const mapStateToProps = (state, props) => ( // eslint-disable-line
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
     saveFileInitAct: saveFileInit,
-    predictByPeaksInitAct: predictByPeaksInit,
+    predictInitAct: predictInit,
   }, dispatch)
 );
 
@@ -174,7 +174,7 @@ Content.propTypes = {
     PropTypes.bool,
   ]).isRequired,
   saveFileInitAct: PropTypes.func.isRequired,
-  predictByPeaksInitAct: PropTypes.func.isRequired,
+  predictInitAct: PropTypes.func.isRequired,
 };
 
 export default connect(

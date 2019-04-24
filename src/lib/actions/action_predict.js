@@ -1,12 +1,12 @@
 import { PREDICT } from '../constants/action_type';
 
-const predictByPeaksInit = payload => (
+const predictInit = payload => (
   {
-    type: PREDICT.BY_PEAKS_INIT,
+    type: PREDICT.PREDICT_INIT,
     payload,
   }
 );
 
 export {
-  predictByPeaksInit, // eslint-disable-line
+  predictInit, // eslint-disable-line
 };

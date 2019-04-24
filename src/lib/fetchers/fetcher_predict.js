@@ -1,9 +1,6 @@
-import { camelizeKeys } from 'humps';
-
-const byPeaks = (payload) => {
-  const {
-    molfile, peaks, layout, shift,
-  } = payload;
+const getParamsNmr = ({
+  molfile, peaks, layout, shift,
+}) => {
   const jsonPeaks = JSON.stringify(peaks);
   const jsonShift = JSON.stringify(shift);
   const data = new FormData();
@@ -12,15 +9,37 @@ const byPeaks = (payload) => {
   data.append('peaks', jsonPeaks);
   data.append('shift', jsonShift);
 
+  const url = '/api/v1/chemspectra/predict/nmr_peaks_form';
+
+  return { url, data };
+};
+
+const getParamsIr = ({ molfile, spectrum }) => {
+  const data = new FormData();
+  data.append('molfile', molfile);
+  data.append('spectrum', spectrum);
+
+  const url = '/api/v1/chemspectra/predict/infrared';
+
+  return { url, data };
+};
+
+const predict = (payload) => {
+  const { layout } = payload;
+  const params = layout === 'IR'
+    ? getParamsIr(payload)
+    : getParamsNmr(payload);
+  const { url, data } = params;
+
   const promise = fetch(
-    '/api/v1/chemspectra/predict/by_peaks_form',
+    url,
     {
       credentials: 'same-origin',
       method: 'post',
       body: data,
     },
   ).then(response => response.json())
-    .then(json => camelizeKeys(json))
+    .then(json => json)
     .catch((err) => {
       console.log(err); // eslint-disable-line
     });
@@ -29,7 +48,7 @@ const byPeaks = (payload) => {
 };
 
 const FetcherPredict = {
-  byPeaks,
+  predict,
 };
 
 export default FetcherPredict;

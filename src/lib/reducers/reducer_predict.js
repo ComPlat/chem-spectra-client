@@ -1,10 +1,10 @@
-import { PREDICT } from '../constants/action_type';
+import { PREDICT, FORM } from '../constants/action_type';
 
 const initialState = {
-  result: false,
+  result: { result: [] },
 };
 
-const updatePredictByPeaks = (state, action) => {
+const updatePredict = (state, action) => {
   const { payload } = action;
   const { result } = payload;
   return Object.assign(
@@ -16,11 +16,12 @@ const updatePredictByPeaks = (state, action) => {
 
 const predictReducer = (state = initialState, action) => {
   switch (action.type) {
-    case PREDICT.BY_PEAKS_INIT:
+    case PREDICT.PREDICT_INIT:
       return Object.assign({}, state, initialState);
-    case PREDICT.BY_PEAKS_DONE:
-      return Object.assign({}, state, updatePredictByPeaks(state, action));
-    case PREDICT.BY_PEAKS_FAIL:
+    case PREDICT.PREDICT_DONE:
+      return Object.assign({}, state, updatePredict(state, action));
+    case PREDICT.PREDICT_FAIL:
+    case FORM.SUBMIT:
       return Object.assign({}, state, initialState);
     default:
       return state;

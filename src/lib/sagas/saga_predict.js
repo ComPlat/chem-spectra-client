@@ -6,26 +6,26 @@ import { PREDICT } from '../constants/action_type';
 import FetcherPredict from '../fetchers/fetcher_predict';
 
 
-function* predictByPeaks(action) {
+function* predictByServer(action) {
   const { payload } = action;
 
-  const rsp = yield call(FetcherPredict.byPeaks, payload);
+  const rsp = yield call(FetcherPredict.predict, payload);
 
   if (rsp && rsp.status) {
     yield put({
-      type: PREDICT.BY_PEAKS_DONE,
+      type: PREDICT.PREDICT_DONE,
       payload: { result: rsp.result },
     });
   } else {
     yield put({
-      type: PREDICT.BY_PEAKS_FAIL,
+      type: PREDICT.PREDICT_FAIL,
       payload: {},
     });
   }
 }
 
 const predictSagas = [
-  takeEvery(PREDICT.BY_PEAKS_INIT, predictByPeaks),
+  takeEvery(PREDICT.PREDICT_INIT, predictByServer),
 ];
 
 export default predictSagas;

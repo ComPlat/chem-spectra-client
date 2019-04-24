@@ -49,9 +49,9 @@ const noticeReducer = (state = initialState, action) => {
     case FILE.CONVERT_FAIL:
     case MOL.CONVERT_FAIL:
       return Object.assign({}, state, errConversionState);
-    case PREDICT.BY_PEAKS_DONE:
+    case PREDICT.PREDICT_DONE:
       return Object.assign({}, state, sucPredictState);
-    case PREDICT.BY_PEAKS_FAIL:
+    case PREDICT.PREDICT_FAIL:
       return Object.assign({}, state, errPredictState);
     case NOTICE.MANUAL_CLEAR:
       return Object.assign({}, state, initialState);

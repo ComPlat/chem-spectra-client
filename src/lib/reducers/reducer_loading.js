@@ -9,7 +9,7 @@ const loadingReducer = (state = initialState, action) => {
     case FILE.ADD_INIT:
     case FILE.SAVE_INIT:
     case MOL.ADD_INIT:
-    case PREDICT.BY_PEAKS_INIT:
+    case PREDICT.PREDICT_INIT:
     case FORM.SUBMIT:
       return true;
     case FILE.ADD_DONE:
@@ -20,8 +20,8 @@ const loadingReducer = (state = initialState, action) => {
     case MOL.CONVERT_DONE:
     case MOL.CONVERT_FAIL:
     case MOL.ADD_FAIL:
-    case PREDICT.BY_PEAKS_DONE:
-    case PREDICT.BY_PEAKS_FAIL:
+    case PREDICT.PREDICT_DONE:
+    case PREDICT.PREDICT_FAIL:
       return false;
     default:
       return state;
