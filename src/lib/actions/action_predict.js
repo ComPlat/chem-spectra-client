@@ -7,6 +7,13 @@ const predictInit = payload => (
   }
 );
 
+const addPredJsonInit = payload => (
+  {
+    type: PREDICT.ADD_PRED_JSON_INIT,
+    payload,
+  }
+);
+
 export {
-  predictInit, // eslint-disable-line
+  predictInit, addPredJsonInit, // eslint-disable-line
 };

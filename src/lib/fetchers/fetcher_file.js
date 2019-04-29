@@ -24,7 +24,7 @@ const convertFile = (target) => {
 
 const saveFile = (target) => {
   const {
-    src, filename, peakStr, shift, mass, scan, thres,
+    src, filename, peakStr, shift, mass, scan, thres, predict,
   } = target;
 
   const data = new FormData();
@@ -37,6 +37,7 @@ const saveFile = (target) => {
   data.append('mass', mass);
   data.append('scan', scan);
   data.append('thres', thres);
+  data.append('predict', predict);
 
   const promise = fetch(
     '/api/v1/chemspectra/file/save',

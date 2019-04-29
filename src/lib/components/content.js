@@ -74,15 +74,18 @@ class Content extends React.Component {
   }
 
   saveOp({
-    peaks, shift, scan, thres,
+    peaks, shift, scan, thres, analysis,
   }) {
-    const { saveFileInitAct, molSt } = this.props;
+    const {
+      saveFileInitAct, molSt,
+    } = this.props;
     const { mass } = molSt;
     const fPeaks = FN.rmRef(peaks, shift);
     const peakStr = FN.toPeakStr(fPeaks);
+    const predict = JSON.stringify({ result: [analysis] });
 
     saveFileInitAct({
-      peakStr, shift, mass, scan, thres,
+      peakStr, shift, mass, scan, thres, predict,
     });
   }
 

@@ -20,6 +20,8 @@ const predictReducer = (state = initialState, action) => {
       return Object.assign({}, state, initialState);
     case PREDICT.PREDICT_DONE:
       return Object.assign({}, state, updatePredict(state, action));
+    case PREDICT.ADD_PRED_JSON_INIT:
+      return Object.assign({}, state, { result: action.payload });
     case PREDICT.PREDICT_FAIL:
     case FORM.SUBMIT:
       return Object.assign({}, state, initialState);
