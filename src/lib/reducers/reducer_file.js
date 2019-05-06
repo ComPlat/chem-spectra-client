@@ -2,18 +2,22 @@ import { FILE, MOL } from '../constants/action_type';
 
 const initialState = {
   src: false,
+  dst: false,
   jcamp: false,
   img: false,
 };
 
 const updateConversion = (state, action) => {
   const { payload } = action;
-  const { file, jcamp, img } = payload;
+  const {
+    file, dst, jcamp, img,
+  } = payload;
   return Object.assign(
     {},
     state,
     {
       src: file,
+      dst,
       jcamp,
       img,
     },
@@ -28,6 +32,7 @@ const insertFile = (state, action) => {
     state,
     {
       src: file,
+      dst: false,
       jcamp: false,
       img: false,
     },

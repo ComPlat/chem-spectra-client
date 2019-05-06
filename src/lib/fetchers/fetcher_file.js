@@ -24,11 +24,11 @@ const convertFile = (target) => {
 
 const saveFile = (target) => {
   const {
-    src, filename, peakStr, shift, mass, scan, thres, predict,
+    dst, filename, peakStr, shift, mass, scan, thres, predict,
   } = target;
 
   const data = new FormData();
-  data.append('file', src);
+  data.append('file', dst);
   data.append('filename', filename);
   data.append('peaks_str', peakStr);
   data.append('shift_select_x', shift.peak.x);
