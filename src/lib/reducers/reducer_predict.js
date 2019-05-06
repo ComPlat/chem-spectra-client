@@ -1,4 +1,6 @@
-import { PREDICT, FORM } from '../constants/action_type';
+import {
+  PREDICT, FORM, FILE, MOL,
+} from '../constants/action_type';
 
 const initialState = {
   result: { result: [] },
@@ -22,6 +24,11 @@ const predictReducer = (state = initialState, action) => {
       return Object.assign({}, state, updatePredict(state, action));
     case PREDICT.ADD_PRED_JSON_INIT:
       return Object.assign({}, state, { result: action.payload });
+    case FILE.ADD_FAIL:
+    case FILE.CONVERT_FAIL:
+    case MOL.ADD_FAIL:
+    case MOL.CONVERT_DONE:
+    case MOL.CONVERT_FAIL:
     case PREDICT.PREDICT_FAIL:
     case FORM.SUBMIT:
       return Object.assign({}, state, initialState);
