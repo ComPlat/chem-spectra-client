@@ -45,7 +45,7 @@ class Content extends React.Component {
 
     this.writeOp = this.writeOp.bind(this);
     this.saveOp = this.saveOp.bind(this);
-    this.predict = this.predict.bind(this);
+    this.predictOp = this.predictOp.bind(this);
     // this.updatInput = this.updatInput.bind(this);
     this.buildPredictObj = this.buildPredictObj.bind(this);
   }
@@ -89,7 +89,7 @@ class Content extends React.Component {
     });
   }
 
-  predict(peaks, layout, shift) {
+  predictOp({ peaks, layout, shift }) {
     const { predictInitAct, molSt, fileSt } = this.props;
     const molfile = molSt.src;
 
@@ -107,8 +107,6 @@ class Content extends React.Component {
     const { molSt, predictSt } = this.props;
 
     const predictObj = {
-      btnCb: this.predict,
-      // inputCb: this.updatInput,
       molecule: molSt.src ? molSt.src.name : '',
       predictions: predictSt.result,
     };
@@ -128,6 +126,7 @@ class Content extends React.Component {
     const operations = [
       { name: 'save', value: this.saveOp },
       { name: 'write', value: this.writeOp },
+      { name: 'predict', value: this.predictOp },
     ].filter(r => r.value);
 
     const predictObj = this.buildPredictObj();
