@@ -47,6 +47,7 @@ class Content extends React.Component {
     this.saveOp = this.saveOp.bind(this);
     this.predictOp = this.predictOp.bind(this);
     // this.updatInput = this.updatInput.bind(this);
+    this.buildOpsByLayout = this.buildOpsByLayout.bind(this);
     this.buildPredictObj = this.buildPredictObj.bind(this);
   }
 
@@ -113,6 +114,20 @@ class Content extends React.Component {
     return predictObj;
   }
 
+  buildOpsByLayout(et) {
+    if (et.spectrum.sTyp === 'MS') {
+      return [
+        { name: 'save', value: this.saveOp },
+        { name: 'write', value: this.writeOp },
+      ];
+    }
+    return [
+      { name: 'save', value: this.saveOp },
+      { name: 'write', value: this.writeOp },
+      { name: 'predict', value: this.predictOp },
+    ];
+  }
+
   render() {
     const { desc } = this.state;
     const { fileSt } = this.props;
@@ -123,12 +138,7 @@ class Content extends React.Component {
     } = FN.buildData(fileSt.jcamp);
     if (!isExist) return renderTitle();
 
-    const operations = [
-      { name: 'save', value: this.saveOp },
-      { name: 'write', value: this.writeOp },
-      { name: 'predict', value: this.predictOp },
-    ].filter(r => r.value);
-
+    const operations = this.buildOpsByLayout(entity);
     const predictObj = this.buildPredictObj();
 
     return (
