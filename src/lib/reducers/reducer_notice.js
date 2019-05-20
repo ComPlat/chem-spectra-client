@@ -27,14 +27,26 @@ const errMolState = {
   message: 'Invalid File: accept only [.mol], [<10MB]',
 };
 
-const sucPredictState = {
-  status: 'success',
-  message: 'Predict success!',
+const warnUnknownState = {
+  status: 'warning',
+  message: 'Unknown State!',
 };
 
-const errPredictState = {
-  status: 'error',
-  message: 'Predict error!',
+const buildPredictNotice = (state, action) => {
+  const { outline } = action.payload;
+  const { code, text } = outline;
+  const status = code <= 299 ? 'success' : 'error';
+  if (code) {
+    return Object.assign(
+      {},
+      state,
+      {
+        status,
+        message: text,
+      },
+    );
+  }
+  return warnUnknownState;
 };
 
 const noticeReducer = (state = initialState, action) => {
@@ -50,9 +62,9 @@ const noticeReducer = (state = initialState, action) => {
     case MOL.CONVERT_FAIL:
       return Object.assign({}, state, errConversionState);
     case PREDICT.PREDICT_DONE:
-      return Object.assign({}, state, sucPredictState);
     case PREDICT.PREDICT_FAIL:
-      return Object.assign({}, state, errPredictState);
+    case PREDICT.ADD_PRED_JSON_INIT:
+      return buildPredictNotice(state, action);
     case NOTICE.MANUAL_CLEAR:
       return Object.assign({}, state, initialState);
     default:

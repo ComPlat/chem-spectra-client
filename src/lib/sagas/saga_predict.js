@@ -19,7 +19,7 @@ function* predictByServer(action) {
   } else {
     yield put({
       type: PREDICT.PREDICT_FAIL,
-      payload: {},
+      payload: rsp,
     });
   }
 }
