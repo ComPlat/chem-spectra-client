@@ -83,7 +83,7 @@ class Content extends React.Component {
     const { mass } = molSt;
     const fPeaks = FN.rmRef(peaks, shift);
     const peakStr = FN.toPeakStr(fPeaks);
-    const predict = JSON.stringify({ result: [analysis] });
+    const predict = JSON.stringify(analysis);
 
     saveFileInitAct({
       peakStr, shift, mass, scan, thres, predict,
@@ -109,7 +109,7 @@ class Content extends React.Component {
 
     const predictObj = {
       molecule: molSt.src ? molSt.src.name : '',
-      predictions: predictSt.result,
+      predictions: predictSt,
     };
     return predictObj;
   }

@@ -63,7 +63,7 @@ const content = (classes, desc) => (
 const InputPredJson = ({
   classes, addPredJsonInitAct, predictSt,
 }) => {
-  const hasPredict = predictSt.result.result.length !== 0;
+  const hasPredict = predictSt.output.result.length !== 0;
   const desc = hasPredict ? msgExist : msgDefault;
 
   const onDrop = (files) => {

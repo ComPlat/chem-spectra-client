@@ -11,10 +11,10 @@ function* predictByServer(action) {
 
   const rsp = yield call(FetcherPredict.predict, payload);
 
-  if (rsp && rsp.status) {
+  if (rsp && rsp.outline.code <= 299) {
     yield put({
       type: PREDICT.PREDICT_DONE,
-      payload: { result: rsp.result },
+      payload: rsp,
     });
   } else {
     yield put({

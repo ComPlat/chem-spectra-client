@@ -3,16 +3,16 @@ import {
 } from '../constants/action_type';
 
 const initialState = {
-  result: { result: [] },
+  outline: {},
+  output: { result: [] },
 };
 
 const updatePredict = (state, action) => {
   const { payload } = action;
-  const { result } = payload;
   return Object.assign(
     {},
     state,
-    { result },
+    payload,
   );
 };
 
@@ -23,7 +23,7 @@ const predictReducer = (state = initialState, action) => {
     case PREDICT.PREDICT_DONE:
       return Object.assign({}, state, updatePredict(state, action));
     case PREDICT.ADD_PRED_JSON_INIT:
-      return Object.assign({}, state, { result: action.payload });
+      return Object.assign({}, state, action.payload);
     case FILE.ADD_FAIL:
     case FILE.CONVERT_FAIL:
     case MOL.ADD_FAIL:
