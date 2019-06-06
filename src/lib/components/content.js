@@ -5,7 +5,9 @@ import { bindActionCreators } from 'redux';
 import { SpectraViewer, FN } from 'react-spectra-viewer';
 
 import { saveFileInit } from '../actions/action_file';
-import { predictInit } from '../actions/action_predict';
+import { predictInit, predictToWriteInit } from '../actions/action_predict';
+import { updateDesc } from '../actions/action_desc';
+import { RmDollarSign } from '../utils/helper';
 
 const titleStyle = {
   backgroundColor: '#f5f5f5',
@@ -39,11 +41,8 @@ class Content extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      desc: '',
-    };
-
     this.writeOp = this.writeOp.bind(this);
+    this.checkWriteOp = this.checkWriteOp.bind(this);
     this.saveOp = this.saveOp.bind(this);
     this.predictOp = this.predictOp.bind(this);
     // this.updatInput = this.updatInput.bind(this);
@@ -51,27 +50,26 @@ class Content extends React.Component {
     this.buildPredictObj = this.buildPredictObj.bind(this);
   }
 
-  componentDidUpdate(prevProps) {
-    const prevSrc = prevProps.fileSt.src;
-    const { fileSt } = this.props;
-    const nextSrc = fileSt.src;
-    if (prevSrc !== nextSrc) {
-      this.setState({ desc: '' }); // eslint-disable-line
-      // https://github.com/airbnb/javascript/issues/1875
-    }
-  }
-
-  rmDollarSign(target) {
-    return target.replace(/\$/g, '');
-  }
-
   writeOp({
     peaks, layout, shift, isAscend, decimal,
   }) {
     const body = FN.peaksBody(peaks, layout, decimal, shift, isAscend);
     const wrapper = FN.peaksWrapper(layout, shift);
-    const desc = this.rmDollarSign(wrapper.head) + body + wrapper.tail;
-    this.setState({ desc });
+    const desc = RmDollarSign(wrapper.head) + body + wrapper.tail;
+    const { updateDescAct } = this.props;
+    updateDescAct(desc);
+  }
+
+  checkWriteOp({
+    peaks, layout, shift, isAscend, decimal,
+  }) {
+    const {
+      predictToWriteInitAct, molSt, fileSt,
+    } = this.props;
+    const molfile = molSt.src;
+    predictToWriteInitAct({
+      molfile, peaks, layout, shift, spectrum: fileSt.src, isAscend, decimal,
+    });
   }
 
   saveOp({
@@ -124,13 +122,13 @@ class Content extends React.Component {
     return [
       { name: 'save', value: this.saveOp },
       { name: 'write', value: this.writeOp },
+      { name: 'check & write', value: this.checkWriteOp },
       { name: 'predict', value: this.predictOp },
     ];
   }
 
   render() {
-    const { desc } = this.state;
-    const { fileSt } = this.props;
+    const { fileSt, descSt } = this.props;
     if (!fileSt) return renderTitle();
 
     const {
@@ -155,7 +153,7 @@ class Content extends React.Component {
           cols="150"
           placeholder="peaks"
           style={editorStyle}
-          value={desc}
+          value={descSt}
           readOnly
         />
       </div>
@@ -168,6 +166,7 @@ const mapStateToProps = (state, props) => ( // eslint-disable-line
     molSt: state.mol,
     fileSt: state.file,
     predictSt: state.predict,
+    descSt: state.desc,
   }
 );
 
@@ -175,6 +174,8 @@ const mapDispatchToProps = dispatch => (
   bindActionCreators({
     saveFileInitAct: saveFileInit,
     predictInitAct: predictInit,
+    predictToWriteInitAct: predictToWriteInit,
+    updateDescAct: updateDesc,
   }, dispatch)
 );
 
@@ -185,8 +186,11 @@ Content.propTypes = {
     PropTypes.object,
     PropTypes.bool,
   ]).isRequired,
+  descSt: PropTypes.string.isRequired,
   saveFileInitAct: PropTypes.func.isRequired,
   predictInitAct: PropTypes.func.isRequired,
+  predictToWriteInitAct: PropTypes.func.isRequired,
+  updateDescAct: PropTypes.func.isRequired,
 };
 
 export default connect(

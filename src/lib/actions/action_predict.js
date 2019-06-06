@@ -14,6 +14,13 @@ const addPredJsonInit = payload => (
   }
 );
 
+const predictToWriteInit = payload => (
+  {
+    type: PREDICT.PREDICT_TO_WRITE_INIT,
+    payload,
+  }
+);
+
 export {
-  predictInit, addPredJsonInit, // eslint-disable-line
+  predictInit, addPredJsonInit, predictToWriteInit,
 };

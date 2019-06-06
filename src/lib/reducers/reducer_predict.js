@@ -19,6 +19,7 @@ const updatePredict = (state, action) => {
 const predictReducer = (state = initialState, action) => {
   switch (action.type) {
     case PREDICT.PREDICT_INIT:
+    case PREDICT.PREDICT_TO_WRITE_INIT:
       return Object.assign({}, state, initialState);
     case PREDICT.PREDICT_DONE:
       return Object.assign({}, state, updatePredict(state, action));

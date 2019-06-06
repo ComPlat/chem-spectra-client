@@ -10,6 +10,7 @@ const loadingReducer = (state = initialState, action) => {
     case FILE.SAVE_INIT:
     case MOL.ADD_INIT:
     case PREDICT.PREDICT_INIT:
+    case PREDICT.PREDICT_TO_WRITE_INIT:
     case FORM.SUBMIT:
       return true;
     case FILE.ADD_DONE:
