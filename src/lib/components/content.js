@@ -113,18 +113,27 @@ class Content extends React.Component {
   }
 
   buildOpsByLayout(et) {
-    if (et.spectrum.sTyp === 'MS') {
-      return [
-        { name: 'save', value: this.saveOp },
-        { name: 'write', value: this.writeOp },
-      ];
-    }
-    return [
+    const ops = [
       { name: 'save', value: this.saveOp },
       { name: 'write', value: this.writeOp },
-      { name: 'check & write', value: this.checkWriteOp },
-      { name: 'predict', value: this.predictOp },
     ];
+    switch (et.spectrum.sTyp) {
+      case 'MS':
+        return ops;
+      case 'INFRARED':
+        return [
+          ...ops,
+          { name: 'predict', value: this.predictOp },
+        ];
+      case 'NMR':
+        return [
+          ...ops,
+          { name: 'check & write', value: this.checkWriteOp },
+          { name: 'predict', value: this.predictOp },
+        ];
+      default:
+        return ops;
+    }
   }
 
   render() {
