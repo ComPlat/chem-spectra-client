@@ -47,7 +47,7 @@ class Content extends React.Component {
     this.predictOp = this.predictOp.bind(this);
     // this.updatInput = this.updatInput.bind(this);
     this.buildOpsByLayout = this.buildOpsByLayout.bind(this);
-    this.buildPredictObj = this.buildPredictObj.bind(this);
+    this.buildForecast = this.buildForecast.bind(this);
   }
 
   writeOp({
@@ -102,7 +102,7 @@ class Content extends React.Component {
   //   this.setState({ molecule });
   // }
 
-  buildPredictObj() {
+  buildForecast() {
     const { molSt, predictSt } = this.props;
 
     const predictObj = {
@@ -146,7 +146,7 @@ class Content extends React.Component {
     if (!isExist) return renderTitle();
 
     const operations = this.buildOpsByLayout(entity);
-    const predictObj = this.buildPredictObj();
+    const forecast = this.buildForecast();
 
     return (
       <div>
@@ -154,7 +154,7 @@ class Content extends React.Component {
           entity={entity}
           xLabel={xLabel}
           yLabel={yLabel}
-          predictObj={predictObj}
+          forecast={forecast}
           operations={operations}
         />
         <textarea
