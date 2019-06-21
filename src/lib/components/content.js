@@ -67,8 +67,15 @@ class Content extends React.Component {
       predictToWriteInitAct, molSt, fileSt,
     } = this.props;
     const molfile = molSt.src;
+    const cleanPeaks = FN.rmShiftFromPeaks(peaks, shift);
     predictToWriteInitAct({
-      molfile, peaks, layout, shift, spectrum: fileSt.src, isAscend, decimal,
+      molfile,
+      layout,
+      shift,
+      isAscend,
+      decimal,
+      peaks: cleanPeaks,
+      spectrum: fileSt.src,
     });
   }
 
