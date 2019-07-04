@@ -29,10 +29,11 @@ const errMolState = {
 
 const warnUnknownState = {
   status: 'warning',
-  message: 'Unknown State!',
+  message: 'Server not available!',
 };
 
 const buildPredictNotice = (state, action) => {
+  if (!action.payload) return warnUnknownState;
   const { outline } = action.payload;
   const { code, text } = outline;
   const status = code <= 299 ? 'success' : 'error';
