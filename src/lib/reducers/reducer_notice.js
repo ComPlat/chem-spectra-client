@@ -19,12 +19,12 @@ const errConversionState = {
 
 const errFileState = {
   status: 'error',
-  message: 'Invalid File: accept only [.dx, .jdx, .JCAMP, .RAW, .mzML], [<10MB]',
+  message: 'Invalid File: accept only [.dx, .jdx, .JCAMP, .RAW, .mzML], [<30MB]',
 };
 
 const errMolState = {
   status: 'error',
-  message: 'Invalid File: accept only [.mol], [<10MB]',
+  message: 'Invalid File: accept only [.mol], [<30MB]',
 };
 
 const warnUnknownState = {

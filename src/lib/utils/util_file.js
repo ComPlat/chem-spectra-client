@@ -29,7 +29,7 @@ const VerifyMolExt = (mol) => {
 
 const kb = 1024;
 const mb = 1024 * kb;
-const sizeLimit = 10 * mb;
+const sizeLimit = 30 * mb;
 
 const VerifySize = (file) => {
   const filesize = file && file.size;
