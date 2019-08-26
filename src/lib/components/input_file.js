@@ -61,18 +61,17 @@ const content = (classes, desc) => (
 );
 
 const InputFile = ({
-  classes, srcMolSt, srcFileSt, addFileInitAct,
+  classes, srcFileSt, addFileInitAct,
 }) => {
   const fileName = srcFileSt && srcFileSt.name;
   const onDrop = files => addFileInitAct({ file: files[0] });
-  const addOnCls = srcMolSt ? classes.enableDD : classes.disableDD;
+  const addOnCls = classes.enableDD;
   const desc = fileName || msgDefault;
 
   return (
     <Dropzone
       className="dropbox"
       onDrop={onDrop}
-      disabled={!srcMolSt}
     >
       {
         ({ getRootProps, getInputProps }) => (

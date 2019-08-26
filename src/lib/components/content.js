@@ -136,13 +136,10 @@ class Content extends React.Component {
       case 'INFRARED':
         return [
           ...ops,
-          { name: 'predict', value: this.predictOp },
         ];
       case 'NMR':
         return [
           ...ops,
-          { name: 'check & write', value: this.checkWriteOp },
-          { name: 'predict', value: this.predictOp },
         ];
       default:
         return ops;
@@ -159,7 +156,7 @@ class Content extends React.Component {
     if (!isExist) return renderTitle();
 
     const operations = this.buildOpsByLayout(entity);
-    const forecast = this.buildForecast();
+    // const forecast = this.buildForecast();
 
     return (
       <div>
@@ -167,7 +164,6 @@ class Content extends React.Component {
           entity={entity}
           xLabel={xLabel}
           yLabel={yLabel}
-          forecast={forecast}
           operations={operations}
         />
         <textarea
