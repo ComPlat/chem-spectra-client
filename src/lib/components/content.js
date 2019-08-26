@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { SpectraViewer, FN } from 'react-spectra-viewer';
+import { SpectraEditor, FN } from 'react-spectra-editor';
 
 import { saveFileInit } from '../actions/action_file';
 import { predictInit, predictToWriteInit } from '../actions/action_predict';
@@ -51,9 +51,15 @@ class Content extends React.Component {
   }
 
   writeOp({
-    peaks, layout, shift, isAscend, decimal,
+    peaks, layout, shift, isAscend, decimal, isIntensity,
   }) {
-    const body = FN.peaksBody(peaks, layout, decimal, shift, isAscend);
+    const { fileSt } = this.props;
+    const { entity } = FN.buildData(fileSt.jcamp);
+    const { maxY, minY } = entity.features[0];
+    const boundary = { maxY, minY };
+    const body = FN.peaksBody({
+      peaks, layout, decimal, shift, isAscend, isIntensity, boundary,
+    });
     const wrapper = FN.peaksWrapper(layout, shift);
     const desc = RmDollarSign(wrapper.head) + body + wrapper.tail;
     const { updateDescAct } = this.props;
@@ -157,7 +163,7 @@ class Content extends React.Component {
 
     return (
       <div>
-        <SpectraViewer
+        <SpectraEditor
           entity={entity}
           xLabel={xLabel}
           yLabel={yLabel}
