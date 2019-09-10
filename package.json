@@ -1,13 +1,13 @@
 {
   "name": "chem-spectra-client",
   "version": "0.5.1",
-  "description": "Client-side for chem-spectra",
+  "description": "ChemSpectra client side server.",
   "repository": {
     "type": "git",
-    "url": "TBD"
+    "url": "https://github.com/ComPlat/chem-spectra-client"
   },
-  "proxy": "http://0.0.0.0:2412",
-  "license": "MIT",
+  "proxy": "http://0.0.0.0:3007",
+  "license": "AGPL-3.0",
   "scripts": {
     "start": "PORT=3006 react-scripts start",
     "build": "react-scripts build",
