@@ -1,6 +1,6 @@
 {
   "name": "chem-spectra-client",
-  "version": "0.5.1",
+  "version": "0.6.1",
   "description": "ChemSpectra client side server.",
   "repository": {
     "type": "git",
