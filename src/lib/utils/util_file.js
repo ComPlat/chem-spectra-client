@@ -13,7 +13,7 @@ const VerifyMsExt = (file) => {
   if (!filename) return false;
   const last = filename.split('.').length - 1;
   const ext = filename.split('.')[last];
-  const acceptables = ['raw', 'mzml'];
+  const acceptables = ['raw', 'mzml', 'cdf'];
   return acceptables.indexOf(ext.toLowerCase()) >= 0;
 };
 
