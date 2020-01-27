@@ -35,7 +35,6 @@ const Frame = ({ classes }) => (
         <InputForm />
       </Grid>
     </Grid>
-    <br />
     <Content />
     <Notice />
     <Loading />
