@@ -20,15 +20,11 @@ const styles = () => ({
     float: 'left',
   },
   btnRefresh: {
-  },
-  btnSubmit: {
-  },
-  formInput: {
+    borderRadius: 5,
+    height: 34,
+    padding: '4px 10px 4px 10px',
   },
   icon: {
-  },
-  tpLabel: {
-    fontSize: 16,
   },
 });
 
@@ -37,6 +33,7 @@ const btnSubmit = (
 ) => (
   <IconButton
     disabled={!isValidExt}
+    size="small"
     variant="fab"
     color="primary"
     className={classNames(classes.btnRefresh)}

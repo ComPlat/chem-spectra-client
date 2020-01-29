@@ -17,12 +17,12 @@ const styles = () => ({
   baseDD: {
     border: '2px dashed #aaa',
     borderRadius: 5,
-    height: 40,
-    lineHeight: '40px',
+    height: 30,
+    lineHeight: '30px',
     margin: '0 0 10px 0',
     textAlign: 'center',
     verticalAlign: 'middle',
-    width: '100%',
+    width: '90%',
   },
   tpCard: {
   },

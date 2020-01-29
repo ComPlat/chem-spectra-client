@@ -55,7 +55,10 @@ class Content extends React.Component {
   }) {
     const { fileSt } = this.props;
     const { entity } = FN.buildData(fileSt.jcamp);
-    const { maxY, minY } = entity.features[0];
+    const { features } = entity;
+    const { maxY, minY } = Array.isArray(features)
+      ? features[0]
+      : (features.editPeak || features.autoPeak);
     const boundary = { maxY, minY };
     const body = FN.peaksBody({
       peaks, layout, decimal, shift, isAscend, isIntensity, boundary,
@@ -86,7 +89,7 @@ class Content extends React.Component {
   }
 
   saveOp({
-    peaks, shift, scan, thres, analysis,
+    peaks, shift, scan, thres, analysis, integration, multiplicity,
   }) {
     const {
       saveFileInitAct, molSt,
@@ -97,7 +100,14 @@ class Content extends React.Component {
     const predict = JSON.stringify(analysis);
 
     saveFileInitAct({
-      peakStr, shift, mass, scan, thres, predict,
+      peakStr,
+      shift,
+      mass,
+      scan,
+      thres,
+      predict,
+      integration: JSON.stringify(integration),
+      multiplicity: JSON.stringify(multiplicity),
     });
   }
 
@@ -171,7 +181,7 @@ class Content extends React.Component {
           operations={operations}
         />
         <textarea
-          rows="6"
+          rows="2"
           cols="150"
           placeholder="peaks"
           style={editorStyle}
