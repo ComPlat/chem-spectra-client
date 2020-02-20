@@ -3,7 +3,7 @@ const VerifyJcampExt = (file) => {
   if (!filename) return false;
   const last = filename.split('.').length - 1;
   const ext = filename.split('.')[last];
-  const acceptables = ['jdx', 'dx', 'jcamp'];
+  const acceptables = ['jdx', 'dx', 'jcamp', 'zip'];
   return acceptables.indexOf(ext.toLowerCase()) >= 0;
 };
 

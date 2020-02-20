@@ -19,7 +19,7 @@ const errConversionState = {
 
 const errFileState = {
   status: 'error',
-  message: 'Invalid File: accept only [.dx, .jdx, .JCAMP, .RAW, .mzML, .cdf], [<30MB]',
+  message: 'Invalid File: accept only [.dx, .jdx, .JCAMP, .RAW, .mzML, .cdf, .zip (Bruker FID folder)], [<30MB]',
 };
 
 const errMolState = {
