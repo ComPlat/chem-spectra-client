@@ -23,10 +23,14 @@ const txtStyle = {
   lineHeight: '200px',
 };
 
+const containerStyle = {
+  margin: '5px 0 0 0',
+};
+
 const editorStyle = {
   border: '1px solid',
   borderRadius: '8px',
-  marginTop: 20,
+  margin: '5px 0 0 60px',
 };
 
 const renderTitle = () => (
@@ -172,7 +176,7 @@ class Content extends React.Component {
     const forecast = this.buildForecast();
 
     return (
-      <div>
+      <div style={containerStyle}>
         <SpectraEditor
           entity={entity}
           xLabel={xLabel}
@@ -182,7 +186,7 @@ class Content extends React.Component {
         />
         <textarea
           rows="2"
-          cols="150"
+          cols="180"
           placeholder="peaks"
           style={editorStyle}
           value={descSt}
