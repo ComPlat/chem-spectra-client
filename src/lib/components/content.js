@@ -45,7 +45,10 @@ class Content extends React.Component {
   constructor(props) {
     super(props);
 
-    this.writeOp = this.writeOp.bind(this);
+    this.writeMpy = this.writeMpy.bind(this);
+    this.writePeak = this.writePeak.bind(this);
+    this.formatPks = this.formatPks.bind(this);
+    this.formatMpy = this.formatMpy.bind(this);
     this.checkWriteOp = this.checkWriteOp.bind(this);
     this.saveOp = this.saveOp.bind(this);
     this.predictOp = this.predictOp.bind(this);
@@ -54,21 +57,83 @@ class Content extends React.Component {
     this.buildForecast = this.buildForecast.bind(this);
   }
 
-  writeOp({
+  formatPks({
     peaks, layout, shift, isAscend, decimal, isIntensity,
   }) {
     const { fileSt } = this.props;
     const { entity } = FN.buildData(fileSt.jcamp);
     const { features } = entity;
-    const { maxY, minY } = Array.isArray(features)
-      ? features[0]
-      : (features.editPeak || features.autoPeak);
+    const { maxY, minY } = Array.isArray(features) ? {} : (features.editPeak || features.autoPeak);
     const boundary = { maxY, minY };
     const body = FN.peaksBody({
       peaks, layout, decimal, shift, isAscend, isIntensity, boundary,
     });
     const wrapper = FN.peaksWrapper(layout, shift);
     const desc = RmDollarSign(wrapper.head) + body + wrapper.tail;
+    return desc;
+  }
+
+  formatMpy({
+    multiplicity, integration, shift, isAscend, decimal, layout,
+  }) {
+    // obsv freq
+    const { fileSt } = this.props;
+    const { entity } = FN.buildData(fileSt.jcamp);
+    const { features } = entity;
+    const { observeFrequency } = Array.isArray(features)
+      ? features[0]
+      : (features.editPeak || features.autoPeak);
+    const freq = observeFrequency;
+    const freqStr = freq ? `${parseInt(freq, 10)} MHz, ` : '';
+    // multiplicity
+    const { refArea, refFactor } = integration;
+    const shiftVal = multiplicity.shift;
+    const ms = multiplicity.stack;
+    const is = integration.stack;
+
+    const macs = ms.map((m) => {
+      const { peaks, mpyType, xExtent } = m;
+      const { xL, xU } = xExtent;
+      const it = is.filter(i => i.xL === xL && i.xU === xU)[0] || { area: 0 };
+      const area = it.area * refFactor / refArea;
+      const center = FN.calcMpyCenter(peaks, shiftVal, mpyType);
+      return Object.assign({}, m, { area, center });
+    }).sort((a, b) => (isAscend ? a.center - b.center : b.center - a.center));
+    const str = macs.map((m) => {
+      const c = m.center;
+      const type = m.mpyType;
+      const it = Math.round(m.area);
+      const js = m.js.map(j => `J = ${j.toFixed(decimal)} Hz`).join(', ');
+      const atomCount = layout === '1H' ? `, ${it}H` : '';
+      const xs = m.peaks.map(p => p.x).sort((a, b) => a - b);
+      const location = type === 'm' ? `${xs[0].toFixed(decimal)}–${xs[xs.length - 1].toFixed(decimal)}` : `${c.toFixed(decimal)}`;
+      return m.js.length === 0
+        ? `${location} (${type}${atomCount})`
+        : `${location} (${type}, ${js}${atomCount})`;
+    }).join(', ');
+    const { label, value, name } = shift.ref;
+    const solvent = label ? `${name.split('(')[0].trim()} [${value.toFixed(decimal)} ppm], ` : '';
+    return `${layout} NMR (${freqStr}${solvent}ppm) δ = ${str}.`;
+  }
+
+  writeMpy({
+    layout, shift, isAscend, decimal,
+    multiplicity, integration,
+  }) {
+    if (['1H', '13C', '19F'].indexOf(layout) < 0) return;
+    const desc = this.formatMpy({
+      multiplicity, integration, shift, isAscend, decimal, layout,
+    });
+    const { updateDescAct } = this.props;
+    updateDescAct(desc);
+  }
+
+  writePeak({
+    peaks, layout, shift, isAscend, decimal, isIntensity,
+  }) {
+    const desc = this.formatPks({
+      peaks, layout, shift, isAscend, decimal, isIntensity,
+    });
     const { updateDescAct } = this.props;
     updateDescAct(desc);
   }
@@ -139,28 +204,20 @@ class Content extends React.Component {
     return predictObj;
   }
 
-  buildOpsByLayout(et) {
-    const ops = [
-      { name: 'save', value: this.saveOp },
-      { name: 'write', value: this.writeOp },
+  buildOpsByLayout(entity) {
+    let ops = [
+      { name: 'write peaks', value: this.writePeak },
+      { name: 'save', value: this.savePeaks },
+      { name: 'predict', value: this.predictOp },
     ];
-    switch (et.spectrum.sTyp) {
-      case 'MS':
-        return ops;
-      case 'INFRARED':
-        return [
-          ...ops,
-          { name: 'predict', value: this.predictOp },
-        ];
-      case 'NMR':
-        return [
-          ...ops,
-          { name: 'check & write', value: this.checkWriteOp },
-          { name: 'predict', value: this.predictOp },
-        ];
-      default:
-        return ops;
+    if (['1H', '13C', '19F'].indexOf(entity.layout) >= 0) {
+      ops = [
+        { name: 'write multiplicity', value: this.writeMpy },
+        ...ops,
+      ];
     }
+    return ops;
+    // { name: 'check & write', value: this.checkWriteOp },
   }
 
   render() {
