@@ -207,7 +207,7 @@ class Content extends React.Component {
   buildOpsByLayout(entity, editorOnly) {
     let ops = [
       { name: 'write peaks', value: this.writePeak },
-      { name: 'save', value: this.savePeaks },
+      { name: 'save', value: this.saveOp },
     ];
     if (!editorOnly) {
       ops = [
