@@ -70,18 +70,19 @@ const content = (classes, desc) => (
 );
 
 const InputFile = ({
-  classes, srcMolSt, srcFileSt, addFileInitAct,
+  classes, editorOnly, srcMolSt, srcFileSt, addFileInitAct,
 }) => {
   const fileName = srcFileSt && srcFileSt.name;
   const onDrop = files => addFileInitAct({ file: files[0] });
-  const addOnCls = srcMolSt ? classes.enableDD : classes.disableDD;
+  const enabled = editorOnly || srcMolSt;
+  const addOnCls = enabled ? classes.enableDD : classes.disableDD;
   const desc = fileName || msgDefault;
 
   return (
     <Dropzone
       className="dropbox"
       onDrop={onDrop}
-      disabled={!srcMolSt}
+      disabled={!enabled}
     >
       {
         ({ getRootProps, getInputProps }) => (
@@ -113,6 +114,7 @@ const mapDispatchToProps = dispatch => (
 
 InputFile.propTypes = {
   classes: PropTypes.object.isRequired,
+  editorOnly: PropTypes.bool.isRequired,
   srcMolSt: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.bool,

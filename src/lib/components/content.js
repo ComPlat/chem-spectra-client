@@ -204,12 +204,17 @@ class Content extends React.Component {
     return predictObj;
   }
 
-  buildOpsByLayout(entity) {
+  buildOpsByLayout(entity, editorOnly) {
     let ops = [
       { name: 'write peaks', value: this.writePeak },
       { name: 'save', value: this.savePeaks },
-      { name: 'predict', value: this.predictOp },
     ];
+    if (!editorOnly) {
+      ops = [
+        ...ops,
+        { name: 'predict', value: this.predictOp },
+      ];
+    }
     if (['1H', '13C', '19F'].indexOf(entity.layout) >= 0) {
       ops = [
         { name: 'write multiplicity', value: this.writeMpy },
@@ -221,7 +226,7 @@ class Content extends React.Component {
   }
 
   render() {
-    const { fileSt, descSt } = this.props;
+    const { fileSt, descSt, editorOnly } = this.props;
     if (!fileSt) return renderTitle();
 
     const {
@@ -229,7 +234,7 @@ class Content extends React.Component {
     } = FN.buildData(fileSt.jcamp);
     if (!isExist) return renderTitle();
 
-    const operations = this.buildOpsByLayout(entity);
+    const operations = this.buildOpsByLayout(entity, editorOnly);
     const forecast = this.buildForecast();
 
     return (
@@ -240,6 +245,7 @@ class Content extends React.Component {
           yLabel={yLabel}
           forecast={forecast}
           operations={operations}
+          editorOnly={editorOnly}
         />
         <textarea
           rows="2"
@@ -284,6 +290,7 @@ Content.propTypes = {
   predictInitAct: PropTypes.func.isRequired,
   predictToWriteInitAct: PropTypes.func.isRequired,
   updateDescAct: PropTypes.func.isRequired,
+  editorOnly: PropTypes.bool.isRequired,
 };
 
 export default connect(

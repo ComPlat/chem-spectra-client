@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { createStore, compose, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
@@ -21,10 +22,18 @@ sagaMiddleware.run(sagas);
 
 
 // - - - React - - -
-const ChemSpectraClient = () => (
+const ChemSpectraClient = ({ editorOnly }) => (
   <Provider store={store}>
-    <Frame />
+    <Frame editorOnly={editorOnly} />
   </Provider>
 );
+
+ChemSpectraClient.propTypes = {
+  editorOnly: PropTypes.bool,
+};
+
+ChemSpectraClient.defaultProps = {
+  editorOnly: false,
+};
 
 export { ChemSpectraClient }; // eslint-disable-line

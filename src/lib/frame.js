@@ -18,24 +18,28 @@ const styles = () => ({
   },
 });
 
-const Frame = ({ classes }) => (
+const Frame = ({ classes, editorOnly }) => (
   <div>
     <Grid container className={classes.root} spacing={24}>
       <Grid key="grid-drop-space" item xs={1} />
       <Grid key="grid-drop-mol" item xs={4}>
-        <InputMol />
+        {
+          editorOnly ? null : <InputMol />
+        }
       </Grid>
       <Grid key="grid-drop-file" item xs={4}>
-        <InputFile />
+        <InputFile editorOnly={editorOnly} />
       </Grid>
       <Grid key="grid-drop-pred-json" item xs={2}>
-        <InputPredJson />
+        {
+          editorOnly ? null : <InputPredJson />
+        }
       </Grid>
       <Grid key="grid-form-input" item xs={1}>
         <InputForm />
       </Grid>
     </Grid>
-    <Content />
+    <Content editorOnly={editorOnly} />
     <Notice />
     <Loading />
   </div>
@@ -43,6 +47,7 @@ const Frame = ({ classes }) => (
 
 Frame.propTypes = {
   classes: PropTypes.object.isRequired,
+  editorOnly: PropTypes.bool.isRequired,
 };
 
 export default withStyles(styles)(Frame);

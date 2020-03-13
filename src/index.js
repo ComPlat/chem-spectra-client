@@ -5,8 +5,10 @@ import { ChemSpectraClient } from './lib/index';
 
 import './style/svg.css';
 
+const editorOnly = false;
+
 // - - - DOM - - -
 ReactDOM.render(
-  <ChemSpectraClient />,
+  <ChemSpectraClient editorOnly={editorOnly} />,
   document.getElementById('root'),
 );
