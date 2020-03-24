@@ -4,11 +4,14 @@ const initialState = {
   src: false,
   smi: false,
   mass: 0,
+  svg: '',
 };
 
 const updateConversion = (state, action) => {
   const { payload } = action;
-  const { mol, smi, mass } = payload;
+  const {
+    mol, smi, mass, svg,
+  } = payload;
   return Object.assign(
     {},
     state,
@@ -16,6 +19,7 @@ const updateConversion = (state, action) => {
       src: mol,
       smi,
       mass,
+      svg: svg || '',
     },
   );
 };

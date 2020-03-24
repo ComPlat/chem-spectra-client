@@ -33,10 +33,12 @@ function* convertMol(action) {
   const rsp = yield call(FetcherMol.convertMol, { mol });
 
   if (rsp && rsp.status) {
-    const { smi, mass } = rsp;
+    const { smi, mass, svg } = rsp;
     yield put({
       type: MOL.CONVERT_DONE,
-      payload: Object.assign({}, { mol, smi, mass }),
+      payload: Object.assign({}, {
+        mol, smi, mass, svg,
+      }),
     });
   } else {
     yield put({

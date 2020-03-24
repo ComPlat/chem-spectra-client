@@ -231,7 +231,7 @@ class Content extends React.Component {
   }
 
   render() {
-    const { fileSt, descSt, editorOnly } = this.props;
+    const { fileSt, descSt, editorOnly, molSt } = this.props;
     if (!fileSt) return renderTitle();
 
     const {
@@ -239,6 +239,7 @@ class Content extends React.Component {
     } = FN.buildData(fileSt.jcamp);
     if (!isExist) return renderTitle();
 
+    const { svg } = molSt;
     const operations = this.buildOpsByLayout(entity, editorOnly);
     const forecast = this.buildForecast();
 
@@ -251,6 +252,7 @@ class Content extends React.Component {
           forecast={forecast}
           operations={operations}
           editorOnly={editorOnly}
+          molSvg={svg}
         />
         <textarea
           rows="2"
