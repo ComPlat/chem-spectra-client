@@ -185,12 +185,32 @@ class Content extends React.Component {
     });
   }
 
-  predictOp({ peaks, layout, shift }) {
+  getPeaksByLayou(peaks, layout, multiplicity) {
+    if (['IR', '13C'].indexOf(layout) >= 0) return peaks;
+
+    const { stack, shift } = multiplicity;
+    const nmrMpyCenters = stack.map((stk) => {
+      const { mpyType } = stk;
+      const centers = stk.peaks;
+      return {
+        x: FN.CalcMpyCenter(centers, shift, mpyType),
+        y: 0,
+      };
+    });
+    const defaultCenters = [{ x: -1000.0, y: 0 }];
+    return nmrMpyCenters.length > 0 ? nmrMpyCenters : defaultCenters;
+  }
+
+  predictOp({
+    peaks, layout, shift, multiplicity,
+  }) {
     const { predictInitAct, molSt, fileSt } = this.props;
     const molfile = molSt.src;
 
+    const targetPeaks = this.getPeaksByLayou(peaks, layout, multiplicity);
+
     predictInitAct({
-      molfile, peaks, layout, shift, spectrum: fileSt.src,
+      molfile, peaks: targetPeaks, layout, shift, spectrum: fileSt.src,
     });
   }
 
