@@ -1,9 +1,10 @@
 import { camelizeKeys } from 'humps';
 
 const convertFile = (target) => {
-  const { file, mass } = target;
+  const { file, mass, mol } = target;
   const data = new FormData();
   data.append('file', file);
+  data.append('molfile', mol);
   data.append('mass', mass);
 
   const promise = fetch(
@@ -24,13 +25,14 @@ const convertFile = (target) => {
 
 const saveFile = (target) => {
   const {
-    src, dst, filename, peakStr, shift, mass, scan, thres, predict,
+    src, dst, filename, mol, peakStr, shift, mass, scan, thres, predict,
     integration, multiplicity,
   } = target;
 
   const data = new FormData();
   data.append('src', src);
   data.append('dst', dst);
+  data.append('molfile', mol);
   data.append('filename', filename);
   data.append('peaks_str', peakStr);
   data.append('shift_select_x', shift.peak.x);

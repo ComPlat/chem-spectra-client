@@ -31,11 +31,14 @@ const getFileSrc = state => state.file.src;
 
 const getMolMass = state => state.mol.mass;
 
+const getMolSrc = state => state.mol.src;
+
 function* convertFile(action) {
   const { payload } = action;
   const file = payload.file || (yield select(getFileSrc));
   const mass = payload.file || (yield select(getMolMass));
-  const rsp = yield call(FetcherFile.convertFile, { file, mass });
+  const mol = yield select(getMolSrc);
+  const rsp = yield call(FetcherFile.convertFile, { file, mass, mol });
 
   if (rsp && rsp.status) {
     const { jcamp, img } = rsp;
@@ -63,10 +66,13 @@ function* saveFile(action) {
 
   const src = yield select(getFileSrc);
   const dst = yield select(getFileDst);
+  const mol = yield select(getMolSrc);
 
   const { name } = src;
   const filename = name.split('.').slice(0, -1).join('.');
-  const target = Object.assign({}, payload, { src, dst, filename });
+  const target = Object.assign({}, payload, {
+    src, dst, filename, mol,
+  });
 
   yield call(FetcherFile.saveFile, target);
   yield put({
