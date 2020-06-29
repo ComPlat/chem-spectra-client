@@ -239,23 +239,18 @@ class Content extends React.Component {
     const { molSt, predictSt } = this.props;
 
     const predictObj = {
+      btnCb: this.predictOp,
       molecule: molSt.src ? molSt.src.name : '',
       predictions: predictSt,
     };
     return predictObj;
   }
 
-  buildOpsByLayout(entity, editorOnly) {
+  buildOpsByLayout(entity, editorOnly) { // eslint-disable-line
     let ops = [
       { name: 'write peaks', value: this.writePeak },
       { name: 'save', value: this.saveOp },
     ];
-    if (!editorOnly) {
-      ops = [
-        ...ops,
-        { name: 'predict', value: this.predictOp },
-      ];
-    }
     if (['1H', '13C', '19F'].indexOf(entity.layout) >= 0) {
       ops = [
         { name: 'write multiplicity', value: this.writeMpy },
