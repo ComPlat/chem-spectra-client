@@ -9,7 +9,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 
-import { saveFileInit } from '../actions/action_file';
+import { saveFileInit, refreshFileInit } from '../actions/action_file';
 import { predictInit, predictToWriteInit } from '../actions/action_predict';
 import { updateDesc } from '../actions/action_desc';
 import { RmDollarSign } from '../utils/helper';
@@ -67,6 +67,7 @@ class Content extends React.Component {
     this.formatMpy = this.formatMpy.bind(this);
     this.checkWriteOp = this.checkWriteOp.bind(this);
     this.saveOp = this.saveOp.bind(this);
+    this.refreshOp = this.refreshOp.bind(this);
     this.predictOp = this.predictOp.bind(this);
     // this.updatInput = this.updatInput.bind(this);
     this.buildOpsByLayout = this.buildOpsByLayout.bind(this);
@@ -201,6 +202,29 @@ class Content extends React.Component {
     });
   }
 
+  refreshOp({
+    peaks, scan, shift, thres, analysis, integration, multiplicity,
+  }) {
+    const {
+      refreshFileInitAct, molSt,
+    } = this.props;
+    const { mass } = molSt;
+    const fPeaks = FN.rmRef(peaks, shift);
+    const peakStr = FN.toPeakStr(fPeaks);
+    const predict = JSON.stringify(analysis);
+
+    refreshFileInitAct({
+      peakStr,
+      shift,
+      mass,
+      scan,
+      thres,
+      predict,
+      integration: JSON.stringify(integration),
+      multiplicity: JSON.stringify(multiplicity),
+    });
+  }
+
   getPeaksByLayou(peaks, layout, multiplicity) {
     if (['IR', '13C'].indexOf(layout) >= 0) return peaks;
 
@@ -240,6 +264,7 @@ class Content extends React.Component {
 
     const predictObj = {
       btnCb: this.predictOp,
+      refreshCb: this.refreshOp,
       molecule: molSt.src ? molSt.src.name : '',
       predictions: predictSt,
     };
@@ -322,6 +347,7 @@ const mapStateToProps = (state, props) => ( // eslint-disable-line
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
     saveFileInitAct: saveFileInit,
+    refreshFileInitAct: refreshFileInit,
     predictInitAct: predictInit,
     predictToWriteInitAct: predictToWriteInit,
     updateDescAct: updateDesc,
@@ -337,6 +363,7 @@ Content.propTypes = {
   ]).isRequired,
   descSt: PropTypes.string.isRequired,
   saveFileInitAct: PropTypes.func.isRequired,
+  refreshFileInitAct: PropTypes.func.isRequired,
   predictInitAct: PropTypes.func.isRequired,
   predictToWriteInitAct: PropTypes.func.isRequired,
   updateDescAct: PropTypes.func.isRequired,

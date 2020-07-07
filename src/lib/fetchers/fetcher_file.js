@@ -70,8 +70,46 @@ const saveFile = (target) => {
   return promise;
 };
 
+const refreshFile = (target) => {
+  const {
+    src, dst, filename, mol, peakStr, shift, mass, scan, thres, predict,
+    integration, multiplicity,
+  } = target;
+
+  const data = new FormData();
+  data.append('src', src);
+  data.append('dst', dst);
+  data.append('molfile', mol);
+  data.append('filename', filename);
+  data.append('peaks_str', peakStr);
+  data.append('shift_select_x', shift.peak.x);
+  data.append('shift_ref_name', shift.ref.name);
+  data.append('shift_ref_value', shift.ref.value);
+  data.append('mass', mass);
+  data.append('scan', scan);
+  data.append('thres', thres);
+  data.append('predict', predict);
+  data.append('integration', integration);
+  data.append('multiplicity', multiplicity);
+
+  const promise = fetch(
+    '/api/v1/chemspectra/file/refresh',
+    {
+      credentials: 'same-origin',
+      method: 'post',
+      body: data,
+    },
+  ).then(response => response.json())
+    .then(json => camelizeKeys(json))
+    .catch((err) => {
+      console.log(err); // eslint-disable-line
+    });
+
+  return promise;
+};
+
 const FetcherFile = {
-  convertFile, saveFile,
+  convertFile, saveFile, refreshFile,
 };
 
 export default FetcherFile;

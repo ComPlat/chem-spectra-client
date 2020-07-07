@@ -14,6 +14,13 @@ const saveFileInit = payload => (
   }
 );
 
+const refreshFileInit = payload => (
+  {
+    type: FILE.REFRESH_INIT,
+    payload,
+  }
+);
+
 export {
-  addFileInit, saveFileInit, // eslint-disable-line
+  addFileInit, saveFileInit, refreshFileInit, // eslint-disable-line
 };

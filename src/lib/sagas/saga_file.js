@@ -80,10 +80,47 @@ function* saveFile(action) {
   });
 }
 
+function* refreshFile(action) {
+  // similar to saveFile
+  const { payload } = action;
+
+  const src = yield select(getFileSrc);
+  const dst = yield select(getFileDst);
+  const mol = yield select(getMolSrc);
+
+  const { name } = src;
+  const filename = name.split('.').slice(0, -1).join('.');
+  const target = Object.assign({}, payload, {
+    src, dst, filename, mol,
+  });
+
+  // similar to convertFile
+  const rsp = yield call(FetcherFile.refreshFile, target);
+
+  if (rsp && rsp.status) {
+    const { jcamp, img } = rsp;
+    const origData = base64.decode(jcamp);
+    const jcampData = FN.ExtractJcamp(origData);
+    const refreshedDst = new File([origData], 'dst.jcamp');
+    yield put({
+      type: FILE.CONVERT_DONE,
+      payload: Object.assign({}, {
+        file: src, img, jcamp: jcampData, dst: refreshedDst,
+      }),
+    });
+  } else {
+    yield put({
+      type: FILE.CONVERT_FAIL,
+      payload,
+    });
+  }
+}
+
 const fileSagas = [
   takeEvery(FILE.ADD_INIT, analysisFile),
   takeEvery(FORM.SUBMIT, convertFile),
   takeEvery(FILE.SAVE_INIT, saveFile),
+  takeEvery(FILE.REFRESH_INIT, refreshFile),
 ];
 
 export default fileSagas;
