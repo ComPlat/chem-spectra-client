@@ -5,8 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { withStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import Send from '@material-ui/icons/Send';
+import Button from '@material-ui/core/Button';
 
 import {
   VerifyMsExt, VerifyJcampExt,
@@ -31,7 +30,7 @@ const styles = () => ({
 const btnSubmit = (
   classes, isValidExt, submitFormAct,
 ) => (
-  <IconButton
+  <Button
     disabled={!isValidExt}
     size="small"
     variant="fab"
@@ -39,8 +38,10 @@ const btnSubmit = (
     className={classNames(classes.btnRefresh)}
     onClick={submitFormAct}
   >
-    <Send className={classNames(classes.icon)} />
-  </IconButton>
+    <span className={classNames(classes.subBtn, 'txt-sv-subBtn')}>
+      Submit
+    </span>
+  </Button>
 );
 
 const InputForm = ({

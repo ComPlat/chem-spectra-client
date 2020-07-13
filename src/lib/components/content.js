@@ -27,10 +27,13 @@ const containerStyle = {
   margin: '5px 0 0 0',
 };
 
+const W = Math.round(window.innerWidth * 0.90 * 9 / 12); // ROI
+
 const editorStyle = {
   border: '1px solid',
   borderRadius: '8px',
   margin: '5px 0 0 60px',
+  width: W - 10,
 };
 
 const renderTitle = () => (
