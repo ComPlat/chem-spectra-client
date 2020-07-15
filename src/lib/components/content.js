@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { SpectraEditor, FN } from 'react-spectra-editor';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+
+import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
+import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 
 import { saveFileInit } from '../actions/action_file';
 import { predictInit, predictToWriteInit } from '../actions/action_predict';
@@ -30,10 +35,18 @@ const containerStyle = {
 const W = Math.round(window.innerWidth * 0.90 * 9 / 12); // ROI
 
 const editorStyle = {
-  border: '1px solid',
-  borderRadius: '8px',
-  margin: '5px 0 0 60px',
-  width: W - 10,
+  border: '1px solid gray',
+  borderRadius: '8px 0 0 8px',
+  margin: '0 0 0 60px',
+  width: W - 80,
+};
+
+const editorBtnStyle = {
+  border: '1px solid gray',
+  borderRadius: '0 8px 8px 0',
+  margin: '0 0 0 0',
+  width: 40,
+  verticalAlign: 'top',
 };
 
 const renderTitle = () => (
@@ -277,14 +290,26 @@ class Content extends React.Component {
           editorOnly={editorOnly}
           molSvg={svg}
         />
-        <textarea
-          rows="2"
-          cols="180"
-          placeholder="peaks"
-          style={editorStyle}
-          value={descSt}
-          readOnly
-        />
+        <div>
+          <textarea
+            rows="2"
+            cols="180"
+            placeholder="peaks"
+            style={editorStyle}
+            value={descSt}
+            readOnly
+          />
+          <Tooltip title="Copy to clipboard">
+            <CopyToClipboard text={descSt}>
+              <Button
+                style={editorBtnStyle}
+                variant="outlined"
+              >
+                <FileCopyOutlinedIcon />
+              </Button>
+            </CopyToClipboard>
+          </Tooltip>
+        </div>
       </div>
     );
   }
