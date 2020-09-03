@@ -38,6 +38,11 @@ const DESC = {
   UPDATE: 'DESC_UPDATE',
 };
 
+const JCAMP = {
+  ADD_OTHERS_INIT: 'JCAMP_ADD_OTHERS_INIT',
+  ADD_OTHERS_RDC: 'JCAMP_ADD_OTHERS_RDC',
+};
+
 export {
   MOL,
   FILE,
@@ -45,4 +50,5 @@ export {
   PREDICT,
   FORM,
   DESC,
+  JCAMP,
 };
