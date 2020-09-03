@@ -20,7 +20,6 @@ function* addOthers(action) {
     if (rsp && rsp.status) {
       const origData = base64.decode(rsp.jcamp);
       const jcampData = FN.ExtractJcamp(origData);
-      console.log(jcampData)
       yield put({
         type: JCAMP.ADD_OTHERS_RDC,
         payload: Object.assign({}, { jcamp: jcampData }),

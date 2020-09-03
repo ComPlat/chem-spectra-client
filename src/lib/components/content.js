@@ -12,6 +12,7 @@ import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import { saveFileInit, refreshFileInit } from '../actions/action_file';
 import { predictInit, predictToWriteInit } from '../actions/action_predict';
 import { updateDesc } from '../actions/action_desc';
+import { addOthersInit } from '../actions/action_jcamp';
 import { RmDollarSign } from '../utils/helper';
 
 const titleStyle = {
@@ -52,7 +53,14 @@ const editorBtnStyle = {
 const renderTitle = () => (
   <div style={titleStyle}>
     <h1 style={txtStyle}>
-      Welcome to ChemSpectra
+      <p>Welcome to ChemSpectra</p>
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://github.com/ComPlat/react-spectra-editor/blob/master/DEMO_MANUAL.md"
+      >
+        Step by step demo
+      </a>
     </h1>
   </div>
 );
@@ -72,6 +80,7 @@ class Content extends React.Component {
     // this.updatInput = this.updatInput.bind(this);
     this.buildOpsByLayout = this.buildOpsByLayout.bind(this);
     this.buildForecast = this.buildForecast.bind(this);
+    this.buildOthers = this.buildOthers.bind(this);
   }
 
   formatPks({
@@ -286,6 +295,15 @@ class Content extends React.Component {
     // { name: 'check & write', value: this.checkWriteOp },
   }
 
+  buildOthers() {
+    const { addOthersInitAct, othersSt } = this.props;
+
+    return {
+      others: othersSt,
+      addOthersCb: addOthersInitAct,
+    };
+  }
+
   render() {
     const { fileSt, descSt, editorOnly, molSt } = this.props;
     if (!fileSt) return renderTitle();
@@ -298,11 +316,13 @@ class Content extends React.Component {
     const { svg } = molSt;
     const operations = this.buildOpsByLayout(entity, editorOnly);
     const forecast = this.buildForecast();
+    const others = this.buildOthers();
 
     return (
       <div style={containerStyle}>
         <SpectraEditor
           entity={entity}
+          others={others}
           xLabel={xLabel}
           yLabel={yLabel}
           forecast={forecast}
@@ -341,6 +361,7 @@ const mapStateToProps = (state, props) => ( // eslint-disable-line
     fileSt: state.file,
     predictSt: state.predict,
     descSt: state.desc,
+    othersSt: state.jcamp.others,
   }
 );
 
@@ -351,6 +372,7 @@ const mapDispatchToProps = dispatch => (
     predictInitAct: predictInit,
     predictToWriteInitAct: predictToWriteInit,
     updateDescAct: updateDesc,
+    addOthersInitAct: addOthersInit,
   }, dispatch)
 );
 
@@ -362,11 +384,13 @@ Content.propTypes = {
     PropTypes.bool,
   ]).isRequired,
   descSt: PropTypes.string.isRequired,
+  othersSt: PropTypes.array.isRequired,
   saveFileInitAct: PropTypes.func.isRequired,
   refreshFileInitAct: PropTypes.func.isRequired,
   predictInitAct: PropTypes.func.isRequired,
   predictToWriteInitAct: PropTypes.func.isRequired,
   updateDescAct: PropTypes.func.isRequired,
+  addOthersAct: PropTypes.func.isRequired,
   editorOnly: PropTypes.bool.isRequired,
 };
 
