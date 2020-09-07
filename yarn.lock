@@ -9512,10 +9512,10 @@ react-scripts@3.0.1:
   optionalDependencies:
     fsevents "2.0.6"
 
-react-spectra-editor@^0.8.13:
-  version "0.8.13"
-  resolved "https://registry.yarnpkg.com/react-spectra-editor/-/react-spectra-editor-0.8.13.tgz#f0b9d958700e496f61152a72c57629e8fbde6cfc"
-  integrity sha512-r/Y4FJ0ii9Ic9cOsPHT+/Bbaws6nzO4S1ANXKDFuQ38b+bdS+74TYRdWkCEQkzP9ybl/UYy6kPDdAT8yk5TK6w==
+react-spectra-editor@^0.8.33:
+  version "0.8.33"
+  resolved "https://registry.yarnpkg.com/react-spectra-editor/-/react-spectra-editor-0.8.33.tgz#5bfe531ec234329cb51b8a0d46a1ea4c83b714d5"
+  integrity sha512-uE2y8Ip+2CNkmEXIKM4dfSBuzsmf6zSRkNDyaT2OdhIebqPsnSFKEJ25sjiE5ANVsXlBoQXR/AtmCQxcxGKoxg==
   dependencies:
     "@material-ui/core" "^3.9.3"
     "@material-ui/icons" "^3.0.2"
@@ -9529,6 +9529,7 @@ react-spectra-editor@^0.8.13:
     jcampconverter "4.1.0"
     ml-savitzky-golay-generalized "1.1.1"
     prop-types "^15.6.2"
+    react-dropzone "^8.0.3"
     react-quill "1.1.0"
     react-redux "^5.0.7"
     react-svg-file-zoom-pan "^1.0.5"
