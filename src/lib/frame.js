@@ -45,7 +45,7 @@ FullVersion.propTypes = {
 const editortext = classes => (
   <span className={classNames(classes.etSpan, 'txt-sv-etext')}>
     (1) Upload a spectrum file to the dashed box on the right.
-        Valid formats: *.dx, *.jdx, *.JCAMP, *.fid, *.zip (Bruker), *.RAW (ThermoFisher), *.mzML.
+        Valid formats: *.dx, *.jdx, *.JCAMP, *.fid, *.zip (Bruker), *.RAW (ThermoFisher), *.mz(X)ML.
         A 2D spectrum is NOT available.
         One spectrum only, not several in parallel.
     (2) Click the submit button

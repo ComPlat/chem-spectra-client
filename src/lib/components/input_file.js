@@ -47,7 +47,7 @@ const tpHint = classes => (
       - Accept *.dx, *.jdx, *.JCAMP,
     </p>
     <p className={classNames(classes.tpLabel, classes.tpMoreTxt, 'txt-sv-tp')}>
-        *.RAW, *.mzML, *.cdf,
+        *.RAW, *.mz(X)ML, *.cdf,
     </p>
     <p className={classNames(classes.tpLabel, classes.tpMoreTxt, 'txt-sv-tp')}>
         *.zip (Bruker FID folder)
