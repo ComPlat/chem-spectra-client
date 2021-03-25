@@ -1,5 +1,5 @@
 {
-  "name": "chem-spectra-client",
+  "name": "@complat/chem-spectra-client",
   "version": "0.10.10",
   "description": "ChemSpectra client side server.",
   "repository": {
@@ -63,5 +63,8 @@
   "files": [
     "dist",
     "README.md"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
