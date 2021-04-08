@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { SpectraEditor, FN } from 'react-spectra-editor';
+import { SpectraEditor, FN } from '@complat/react-spectra-editor';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import Tooltip from '@material-ui/core/Tooltip';
