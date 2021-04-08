@@ -1,6 +1,6 @@
 {
   "name": "@complat/chem-spectra-client",
-  "version": "0.10.11-beta.0",
+  "version": "0.10.11",
   "description": "ChemSpectra client side server.",
   "repository": {
     "type": "git",
