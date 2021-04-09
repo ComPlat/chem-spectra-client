@@ -236,7 +236,7 @@ class Content extends React.Component {
 
   getPeaksByLayou(peaks, layout, multiplicity) {
     if (['IR'].indexOf(layout) >= 0) return peaks;
-
+    if (['13C'].indexOf(layout) >= 0) return FN.CarbonFeatures(peaks, multiplicity);
     const { stack, shift } = multiplicity;
     const nmrMpyCenters = stack.map((stk) => {
       const { mpyType } = stk;
@@ -246,6 +246,7 @@ class Content extends React.Component {
         y: 0,
       };
     });
+
     const defaultCenters = [{ x: -1000.0, y: 0 }];
     return nmrMpyCenters.length > 0 ? nmrMpyCenters : defaultCenters;
   }
