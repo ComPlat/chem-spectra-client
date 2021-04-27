@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { SpectraEditor, FN } from '@complat/react-spectra-editor';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import NMRium from 'nmrium';
 
 import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
@@ -81,6 +82,11 @@ class Content extends React.Component {
     this.buildOpsByLayout = this.buildOpsByLayout.bind(this);
     this.buildForecast = this.buildForecast.bind(this);
     this.buildOthers = this.buildOthers.bind(this);
+
+    this.state = {
+      jcampData: null,
+      isShowNMRium: false
+    }
   }
 
   formatPks({
@@ -305,6 +311,29 @@ class Content extends React.Component {
     };
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props === prevProps) {
+      return
+    }
+    const {fileSt} = this.props;
+    this.loadNMRium(fileSt.src)
+  }
+
+  loadNMRium(data) {
+    const reader = new FileReader()
+    reader.onload = async (e) => { 
+      const text = (e.target.result)
+      // console.log(text)
+      this.setState({jcampData: text})
+    };
+    reader.readAsText(data)
+  }
+
+  displayNMRium() {
+    const {isShowNMRium} = this.state;
+    this.setState({isShowNMRium: !isShowNMRium})
+  }
+
   render() {
     const { fileSt, descSt, editorOnly, molSt } = this.props;
     if (!fileSt) return renderTitle();
@@ -319,18 +348,47 @@ class Content extends React.Component {
     const forecast = this.buildForecast();
     const others = this.buildOthers();
 
+
+    
+    
+    const data = {
+      spectra: [
+        {
+          data: {},
+          source: {
+            original: [],
+            jcamp: this.state.jcampData,
+            // jcampURL: "http://172.22.91.55/api/v1/attachments/193275",
+            jcampURL: null
+          },
+        },
+      ]
+    }
+
+    const {isShowNMRium} = this.state;
+
     return (
       <div style={containerStyle}>
-        <SpectraEditor
-          entity={entity}
-          others={others}
-          xLabel={xLabel}
-          yLabel={yLabel}
-          forecast={forecast}
-          operations={operations}
-          editorOnly={editorOnly}
-          molSvg={svg}
-        />
+        <Button onClick={() => this.displayNMRium()}>
+          {
+            isShowNMRium ? "Hide NMRium" : "Show NMRium"
+          }
+          </Button>
+        {
+          isShowNMRium ? 
+          <NMRium data={data}/> : 
+          <SpectraEditor
+            entity={entity}
+            others={others}
+            xLabel={xLabel}
+            yLabel={yLabel}
+            forecast={forecast}
+            operations={operations}
+            editorOnly={editorOnly}
+            molSvg={svg}
+          />
+        }
+        
         <div>
           <textarea
             rows="2"

@@ -41,6 +41,7 @@ function* convertFile(action) {
   const rsp = yield call(FetcherFile.convertFile, { file, mass, mol });
 
   if (rsp && rsp.status) {
+    console.log('convertFile')
     const { jcamp, img } = rsp;
     const origData = base64.decode(jcamp);
     const jcampData = FN.ExtractJcamp(origData);
@@ -48,7 +49,7 @@ function* convertFile(action) {
     yield put({
       type: FILE.CONVERT_DONE,
       payload: Object.assign({}, {
-        file, img, jcamp: jcampData, dst,
+        file, img, jcamp: jcampData, dst, jcampsrc: origData
       }),
     });
   } else {

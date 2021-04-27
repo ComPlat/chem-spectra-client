@@ -78,11 +78,17 @@ const InputFile = ({
   const addOnCls = enabled ? classes.enableDD : classes.disableDD;
   const desc = fileName || msgDefault;
 
+  console.log(srcFileSt)
   return (
+    // <Dropzone
+    //   className="dropbox"
+    //   onDrop={onDrop}
+    //   disabled={!enabled}
+    // >
     <Dropzone
       className="dropbox"
       onDrop={onDrop}
-      disabled={!enabled}
+      disabled={false}
     >
       {
         ({ getRootProps, getInputProps }) => (
@@ -94,6 +100,7 @@ const InputFile = ({
             { content(classes, desc) }
           </div>
         )
+        
       }
     </Dropzone>
   );

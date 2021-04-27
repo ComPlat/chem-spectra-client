@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/ComPlat/chem-spectra-client"
   },
-  "proxy": "http://0.0.0.0:3007",
+  "proxy": "http://172.21.39.253:3008",
   "license": "AGPL-3.0",
   "scripts": {
     "start": "PORT=3006 react-scripts start",
@@ -27,6 +27,7 @@
     "base-64": "^0.1.0",
     "classnames": "^2.2.6",
     "humps": "^2.0.1",
+    "nmrium": "^0.11.0",
     "prop-types": "^15.6.2",
     "react-copy-to-clipboard": "^5.0.2",
     "react-dropzone": "^8.0.3",
@@ -44,8 +45,8 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "eslint-config-airbnb": "^17.1.0",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
+    "react": "17.0.2",
+    "react-dom": "17.0.1",
     "react-scripts": "3.0.1",
     "redux-logger": "^3.0.6"
   },
