@@ -84,7 +84,7 @@ class Content extends React.Component {
   }
 
   formatPks({
-    peaks, layout, shift, isAscend, decimal, isIntensity,
+    peaks, layout, shift, isAscend, decimal, isIntensity, integration
   }) {
     const { fileSt } = this.props;
     const { entity } = FN.buildData(fileSt.jcamp);
@@ -92,7 +92,7 @@ class Content extends React.Component {
     const { maxY, minY } = Array.isArray(features) ? {} : (features.editPeak || features.autoPeak);
     const boundary = { maxY, minY };
     const body = FN.peaksBody({
-      peaks, layout, decimal, shift, isAscend, isIntensity, boundary,
+      peaks, layout, decimal, shift, isAscend, isIntensity, boundary, integration
     });
     const wrapper = FN.peaksWrapper(layout, shift);
     const desc = RmDollarSign(wrapper.head) + body + wrapper.tail;
@@ -160,10 +160,10 @@ class Content extends React.Component {
   }
 
   writePeak({
-    peaks, layout, shift, isAscend, decimal, isIntensity,
+    peaks, layout, shift, isAscend, decimal, isIntensity, integration
   }) {
     const desc = this.formatPks({
-      peaks, layout, shift, isAscend, decimal, isIntensity,
+      peaks, layout, shift, isAscend, decimal, isIntensity, integration
     });
     const { updateDescAct } = this.props;
     updateDescAct(desc);
