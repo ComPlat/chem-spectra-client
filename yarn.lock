@@ -923,10 +923,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@complat/react-spectra-editor@0.10.13-alpha.9":
-  version "0.10.13-alpha.9"
-  resolved "https://registry.yarnpkg.com/@complat/react-spectra-editor/-/react-spectra-editor-0.10.13-alpha.9.tgz#51829e6fca8c358d6dcf5794d193c9879098223b"
-  integrity sha512-tJ19sLUWhWGXyhElzN6qX7AEGTWAcT/lf5s625F7M3+fhDb8ry1QboZrI2b2Go957qkiNlbhvtv+lYoaNHDjFg==
+"@complat/react-spectra-editor@0.10.13-beta.6":
+  version "0.10.13-beta.6"
+  resolved "https://registry.yarnpkg.com/@complat/react-spectra-editor/-/react-spectra-editor-0.10.13-beta.6.tgz#3e701c2d5b7fa3bfb720d93973f0dc6ec29e5c98"
+  integrity sha512-w1C0wHn4FZKcvnPFf+flB7OADU4A1RlHw8hwR77vb1ynDv/+7Y3OyXBCeN0EdwbOVinrxgPr2uQnIwIFq/0YmA==
   dependencies:
     "@material-ui/core" "^3.9.3"
     "@material-ui/icons" "^3.0.2"
