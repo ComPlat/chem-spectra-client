@@ -26,7 +26,7 @@ const convertFile = (target) => {
 const saveFile = (target) => {
   const {
     src, dst, filename, mol, peakStr, shift, mass, scan, thres, predict,
-    integration, multiplicity,
+    integration, multiplicity, waveLength
   } = target;
 
   const data = new FormData();
@@ -44,6 +44,7 @@ const saveFile = (target) => {
   data.append('predict', predict);
   data.append('integration', integration);
   data.append('multiplicity', multiplicity);
+  data.append('wave_length', waveLength);
 
   const promise = fetch(
     '/api/v1/chemspectra/file/save',
@@ -73,7 +74,7 @@ const saveFile = (target) => {
 const refreshFile = (target) => {
   const {
     src, dst, filename, mol, peakStr, shift, mass, scan, thres, predict,
-    integration, multiplicity,
+    integration, multiplicity, waveLength
   } = target;
 
   const data = new FormData();
@@ -91,6 +92,7 @@ const refreshFile = (target) => {
   data.append('predict', predict);
   data.append('integration', integration);
   data.append('multiplicity', multiplicity);
+  data.append('wave_length', waveLength);
 
   const promise = fetch(
     '/api/v1/chemspectra/file/refresh',
