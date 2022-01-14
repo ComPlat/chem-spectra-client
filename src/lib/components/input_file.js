@@ -79,10 +79,15 @@ const InputFile = ({
   const desc = fileName || msgDefault;
 
   return (
+    // <Dropzone
+    //   className="dropbox"
+    //   onDrop={onDrop}
+    //   disabled={!enabled}
+    // >
     <Dropzone
       className="dropbox"
       onDrop={onDrop}
-      disabled={!enabled}
+      disabled={false}
     >
       {
         ({ getRootProps, getInputProps }) => (
