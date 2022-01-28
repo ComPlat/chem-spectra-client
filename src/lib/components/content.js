@@ -311,7 +311,7 @@ class Content extends React.Component {
     if (!fileSt) return renderTitle();
 
     const {
-      entity, xLabel, yLabel, isExist,
+      entity, xLabel, yLabel, isExist, xUnit, yUnit
     } = FN.buildData(fileSt.jcamp);
     if (!isExist) return renderTitle();
 
@@ -327,6 +327,8 @@ class Content extends React.Component {
           others={others}
           xLabel={xLabel}
           yLabel={yLabel}
+          xUnit={xUnit}
+          yUnit={yUnit}
           forecast={forecast}
           operations={operations}
           editorOnly={editorOnly}

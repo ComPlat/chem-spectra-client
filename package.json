@@ -20,7 +20,7 @@
     "react-dom": "^16.6.3"
   },
   "dependencies": {
-    "@complat/react-spectra-editor": "0.10.13",
+    "@complat/react-spectra-editor": "https://github.com/ComPlat/react-spectra-editor#provide-unit-for-auc-for-hplc",
     "@material-ui/core": "^3.9.4",
     "@material-ui/icons": "^3.0.2",
     "axios": "^0.21.1",
