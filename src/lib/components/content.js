@@ -189,7 +189,7 @@ class Content extends React.Component {
   }
 
   saveOp({
-    peaks, shift, scan, thres, analysis, integration, multiplicity, waveLength
+    peaks, shift, scan, thres, analysis, integration, multiplicity, waveLength, comparisons
   }) {
     const {
       saveFileInitAct, molSt,
@@ -209,6 +209,7 @@ class Content extends React.Component {
       integration: JSON.stringify(integration),
       multiplicity: JSON.stringify(multiplicity),
       waveLength: JSON.stringify(waveLength),
+      comparisons: JSON.stringify(comparisons),
     });
   }
 

@@ -26,7 +26,7 @@ const convertFile = (target) => {
 const saveFile = (target) => {
   const {
     src, dst, filename, mol, peakStr, shift, mass, scan, thres, predict,
-    integration, multiplicity, waveLength
+    integration, multiplicity, waveLength, comparisons
   } = target;
 
   const data = new FormData();
@@ -45,6 +45,7 @@ const saveFile = (target) => {
   data.append('integration', integration);
   data.append('multiplicity', multiplicity);
   data.append('wave_length', waveLength);
+  data.append('comparisons', comparisons);
 
   const promise = fetch(
     '/api/v1/chemspectra/file/save',
