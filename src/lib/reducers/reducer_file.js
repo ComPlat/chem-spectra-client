@@ -5,12 +5,14 @@ const initialState = {
   dst: false,
   jcamp: false,
   img: false,
+  jcampList: false,
+  dstList: false,
 };
 
 const updateConversion = (state, action) => {
   const { payload } = action;
   const {
-    file, dst, jcamp, img,
+    file, dst, jcamp, img, jcampList, dstList
   } = payload;
   return Object.assign(
     {},
@@ -20,6 +22,8 @@ const updateConversion = (state, action) => {
       dst,
       jcamp,
       img,
+      jcampList,
+      dstList
     },
   );
 };
@@ -35,6 +39,8 @@ const insertFile = (state, action) => {
       dst: false,
       jcamp: false,
       img: false,
+      jcampList: false,
+      dstList: false,
     },
   );
 };

@@ -25,8 +25,8 @@ const convertFile = (target) => {
 
 const saveFile = (target) => {
   const {
-    src, dst, filename, mol, peakStr, shift, mass, scan, thres, predict,
-    integration, multiplicity, waveLength
+    src, dst, filename, mol, dstList, peakStr, shift, mass, scan, thres, predict,
+    integration, multiplicity, waveLength, cyclicvolta
   } = target;
 
   const data = new FormData();
@@ -45,6 +45,13 @@ const saveFile = (target) => {
   data.append('integration', integration);
   data.append('multiplicity', multiplicity);
   data.append('wave_length', waveLength);
+  data.append('cyclic_volta', cyclicvolta);
+
+  if (dstList) {
+    dstList.forEach(dstFile => {
+      data.append('dst_list', dstFile);
+    });
+  }
 
   const promise = fetch(
     '/api/v1/chemspectra/file/save',
@@ -73,8 +80,8 @@ const saveFile = (target) => {
 
 const refreshFile = (target) => {
   const {
-    src, dst, filename, mol, peakStr, shift, mass, scan, thres, predict,
-    integration, multiplicity, waveLength
+    src, dst, filename, dstList, mol, peakStr, shift, mass, scan, thres, predict,
+    integration, multiplicity, waveLength, cyclicvolta
   } = target;
 
   const data = new FormData();
@@ -93,6 +100,13 @@ const refreshFile = (target) => {
   data.append('integration', integration);
   data.append('multiplicity', multiplicity);
   data.append('wave_length', waveLength);
+  data.append('cyclic_volta', cyclicvolta);
+
+  if (dstList) {
+    dstList.forEach(dstFile => {
+      data.append('dst_list', dstFile);
+    });
+  }
 
   const promise = fetch(
     '/api/v1/chemspectra/file/refresh',
