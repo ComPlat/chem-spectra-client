@@ -189,7 +189,7 @@ class Content extends React.Component {
   }
 
   saveOp({
-    peaks, shift, scan, thres, analysis, integration, multiplicity, waveLength
+    peaks, shift, scan, thres, analysis, integration, multiplicity, waveLength, cyclicvoltaSt
   }) {
     const {
       saveFileInitAct, molSt,
@@ -209,6 +209,7 @@ class Content extends React.Component {
       integration: JSON.stringify(integration),
       multiplicity: JSON.stringify(multiplicity),
       waveLength: JSON.stringify(waveLength),
+      cyclicvolta: JSON.stringify(cyclicvoltaSt),
     });
   }
 
@@ -313,20 +314,41 @@ class Content extends React.Component {
     const {
       entity, xLabel, yLabel, isExist,
     } = FN.buildData(fileSt.jcamp);
-    if (!isExist) return renderTitle();
+
+    let currEntity = entity;
+    let currXLabel = xLabel;
+    let currYLabel = yLabel;
+
+    let multiEntities = false;
+    if (!isExist) {
+      const { jcampList } = fileSt;
+      if (!jcampList || jcampList.length === 0) return renderTitle();
+      multiEntities = jcampList.map((jcamp) => {
+        const {
+          entity, xLabel, yLabel
+        } = FN.buildData(jcamp);
+        currEntity = entity;
+        currXLabel = xLabel;
+        currYLabel = yLabel;
+        return entity;
+      });
+    }
+    
+    // if (!isExist) return renderTitle();
 
     const { svg } = molSt;
-    const operations = this.buildOpsByLayout(entity, editorOnly);
+    const operations = this.buildOpsByLayout(currEntity, editorOnly);
     const forecast = this.buildForecast();
     const others = this.buildOthers();
 
     return (
       <div style={containerStyle}>
         <SpectraEditor
-          entity={entity}
+          entity={currEntity}
+          multiEntities={multiEntities}
           others={others}
-          xLabel={xLabel}
-          yLabel={yLabel}
+          xLabel={currXLabel}
+          yLabel={currYLabel}
           forecast={forecast}
           operations={operations}
           editorOnly={editorOnly}

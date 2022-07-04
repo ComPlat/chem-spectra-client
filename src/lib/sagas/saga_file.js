@@ -40,17 +40,44 @@ function* convertFile(action) {
   const mol = yield select(getMolSrc);
   const rsp = yield call(FetcherFile.convertFile, { file, mass, mol });
 
+
   if (rsp && rsp.status) {
-    const { jcamp, img } = rsp;
-    const origData = base64.decode(jcamp);
-    const jcampData = FN.ExtractJcamp(origData);
-    const dst = new File([origData], 'dst.jcamp');
-    yield put({
-      type: FILE.CONVERT_DONE,
-      payload: Object.assign({}, {
-        file, img, jcamp: jcampData, dst,
-      }),
-    });
+    const { jcamp, img, listJcamps } = rsp;
+    if (jcamp) {
+      const origData = base64.decode(jcamp);
+      const jcampData = FN.ExtractJcamp(origData);
+      const dst = new File([origData], 'dst.jcamp');
+      yield put({
+        type: FILE.CONVERT_DONE,
+        payload: Object.assign({}, {
+          file, img, jcamp: jcampData, dst,
+        }),
+      });
+    }
+    else if (listJcamps) {
+      const jcampList = listJcamps.map(itemJcamp => {
+        const origData = base64.decode(itemJcamp);
+        const jcampData = FN.ExtractJcamp(origData);
+        return jcampData
+      });
+      const dstList = listJcamps.map((itemJcamp, idx) => {
+        const origData = base64.decode(itemJcamp);
+        const dst = new File([origData], `dst_${idx}.jcamp`);
+        return dst
+      });
+      yield put({
+        type: FILE.CONVERT_DONE,
+        payload: Object.assign({}, {
+          file, jcampList: jcampList, dstList: dstList
+        }),
+      });
+    }
+    else {
+      yield put({
+        type: FILE.CONVERT_FAIL,
+        payload,
+      });
+    }
   } else {
     yield put({
       type: FILE.CONVERT_FAIL,
@@ -61,17 +88,20 @@ function* convertFile(action) {
 
 const getFileDst = state => state.file.dst;
 
+const getListFileDst = state => state.file.dstList;
+
 function* saveFile(action) {
   const { payload } = action;
 
   const src = yield select(getFileSrc);
   const dst = yield select(getFileDst);
   const mol = yield select(getMolSrc);
+  const dstList = yield select(getListFileDst);
 
   const { name } = src;
   const filename = name.split('.').slice(0, -1).join('.');
   const target = Object.assign({}, payload, {
-    src, dst, filename, mol,
+    src, dst, filename, mol, dstList
   });
 
   yield call(FetcherFile.saveFile, target);
