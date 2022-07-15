@@ -1215,10 +1215,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@complat/react-spectra-editor@^0.10.14-beta.3":
-  version "0.10.14-beta.3"
-  resolved "https://registry.yarnpkg.com/@complat/react-spectra-editor/-/react-spectra-editor-0.10.14-beta.3.tgz#75d2e87ea6a3073c5dbffc77c1a9aec271c24f85"
-  integrity sha512-XBblGwww9tEW6tiGMf9mJhagvcOSnvt68IDVkVZl8UkoIW0BRXCZ+geweFop9tkahoQ6Kwx19hfhBxxaNfNZjw==
+"@complat/react-spectra-editor@0.10.14-beta.4":
+  version "0.10.14-beta.4"
+  resolved "https://registry.yarnpkg.com/@complat/react-spectra-editor/-/react-spectra-editor-0.10.14-beta.4.tgz#149cb8715606685ce5867a999808de39041080c1"
+  integrity sha512-PPjwG2YrYsqhFV0cNT/39t8qrEKJhMvNBJNyDD02QFo/ls7qvdL33NqIra+DqPa37e5VRccGUN/VLQY4ZL+51Q==
   dependencies:
     "@complat/react-svg-file-zoom-pan" "^1.0.11"
     "@material-ui/core" "^4.10.0"
@@ -10650,11 +10650,6 @@ regenerator-runtime@^0.11.0:
   integrity sha512-MguG95oij0fC3QV3URf4V2SDYGJhJnJGqvIIgdECeODCT98wSWDAJ94SSuVpYQUoTcGUIL6L4yNB7j1DFFHSBg==
 
 regenerator-runtime@^0.13.3, regenerator-runtime@^0.13.4:
-  version "0.13.9"
-  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz#8925742a98ffd90814988d7566ad30ca3b263b52"
-  integrity sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==
-
-regenerator-runtime@^0.13.4:
   version "0.13.9"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz#8925742a98ffd90814988d7566ad30ca3b263b52"
   integrity sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==
