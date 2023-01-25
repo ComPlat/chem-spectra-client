@@ -405,7 +405,6 @@
     "@babel/helper-plugin-utils" "^7.17.12"
     "@babel/plugin-syntax-logical-assignment-operators" "^7.10.4"
 
-
 "@babel/plugin-proposal-nullish-coalescing-operator@7.8.3":
   version "7.8.3"
   resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-nullish-coalescing-operator/-/plugin-proposal-nullish-coalescing-operator-7.8.3.tgz#e4572253fdeed65cddeecfdab3f928afeb2fd5d2"
@@ -1216,10 +1215,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@complat/react-spectra-editor@0.10.15":
-  version "0.10.15"
-  resolved "https://registry.yarnpkg.com/@complat/react-spectra-editor/-/react-spectra-editor-0.10.15.tgz#b404633a6727ec30cc9915ca9dc4804d1a6c2cad"
-  integrity sha512-oy47uT0pBvo1KThqX2J4LMpecWa4q0IyYJBHDKV9naFvjxZs//B6FsHAjRT1dZxZxPBKew4zJ6zVwYMsGtv3TA==
+"@complat/react-spectra-editor@0.11.1":
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/@complat/react-spectra-editor/-/react-spectra-editor-0.11.1.tgz#3ef5326f6bd7190ae9f30198bbd3d658e15f7f9e"
+  integrity sha512-0JSIQsAtak77xobZxuDzDW3sraVlTF88Yn1Ge8SvHVrzntVI6iuM8jt3OedNfpyU1HIkwnqPKyYxUwI2QaszIQ==
   dependencies:
     "@complat/react-svg-file-zoom-pan" "^1.0.11"
     "@material-ui/core" "^4.10.0"
@@ -1247,15 +1246,6 @@
     redux-undo "^1.0.1"
     regenerator-transform "^0.13.3"
     reselect "^4.0.0"
-
-"@complat/react-svg-file-zoom-pan@^1.0.11":
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/@complat/react-svg-file-zoom-pan/-/react-svg-file-zoom-pan-1.0.14.tgz#789f1493fdb59ecd8f19d19416bcf9d72f79f877"
-  integrity sha512-RUGtwdk8Wg63MbLLyqSB/7EI04zGzCNaX4E5ulkBf89O/fSzVxDFwwupwsPy5pgS6KUQfR+1XJUOjHbgP6O5Xg==
-  dependencies:
-    babel-plugin-transform-object-rest-spread "^6.26.0"
-    d3 "^5.5.0"
-    regenerator-transform "^0.13.3"
 
 "@complat/react-svg-file-zoom-pan@^1.0.11":
   version "1.0.14"
@@ -8708,13 +8698,6 @@ nth-check@^1.0.2:
   integrity sha512-WeBOdju8SnzPN5vTUJYxYUxLeXpCaVP5i5e0LF8fg7WORF2Wd7wFX/pk0tYZk7s8T+J7VLy0Da6J1+wCT0AtHg==
   dependencies:
     boolbase "~1.0.0"
-
-nth-check@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/nth-check/-/nth-check-2.0.1.tgz#2efe162f5c3da06a28959fbd3db75dbeea9f0fc2"
-  integrity sha512-it1vE95zF6dTT9lBsYbxvqh0Soy4SPowchj0UBGj/V6cTPnXXtQOPUbhZ6CmGzAD/rW22LQK6E96pcdJXk4A4w==
-  dependencies:
-    boolbase "^1.0.0"
 
 nth-check@^2.0.1:
   version "2.0.1"
