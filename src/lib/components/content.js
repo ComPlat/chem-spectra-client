@@ -189,19 +189,22 @@ class Content extends React.Component {
   }
 
   saveOp({
-    peaks, shift, scan, thres, analysis, integration, multiplicity, waveLength, cyclicvoltaSt
+    peaks, shift, scan, thres, analysis, integration, multiplicity, waveLength, cyclicvoltaSt, curveSt
   }) {
     const {
       saveFileInitAct, molSt,
     } = this.props;
     const { mass } = molSt;
-    const fPeaks = FN.rmRef(peaks, shift);
+    const { curveIdx } = curveSt;
+    const selectedShift = shift.shifts[curveIdx];
+    console.log(shift);
+    const fPeaks = FN.rmRef(peaks, selectedShift);
     const peakStr = FN.toPeakStr(fPeaks);
     const predict = JSON.stringify(analysis);
 
     saveFileInitAct({
       peakStr,
-      shift,
+      shift: selectedShift,
       mass,
       scan,
       thres,
