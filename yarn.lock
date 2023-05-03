@@ -1215,10 +1215,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@complat/react-spectra-editor@0.11.4":
-  version "0.11.4"
-  resolved "https://registry.yarnpkg.com/@complat/react-spectra-editor/-/react-spectra-editor-0.11.4.tgz#5abfc4268fd2bc9a2bd954f91a0b3708843bac63"
-  integrity sha512-CFcDog6IriKF63FhyuG4A8kUvfncbHrQx5BphUfdUe0Ke3SOUuSZgzO5HmvB7LOMBnyTFiIu8cZAvRLNWkd2sg==
+"@complat/react-spectra-editor@0.11.5":
+  version "0.11.5"
+  resolved "https://registry.yarnpkg.com/@complat/react-spectra-editor/-/react-spectra-editor-0.11.5.tgz#b2322eeda7233fddc4d1de0f34d14849f56dc80b"
+  integrity sha512-BNxh8XOB3wxPRNzRZx7zRXj5EFrsc0XMDjM0foTNYHPAcL8GjxCU1LSsXwfO3yBd75lhlZLYc8Qc0fUm5zXdww==
   dependencies:
     "@complat/react-svg-file-zoom-pan" "1.0.15"
     "@material-ui/core" "^4.10.0"
