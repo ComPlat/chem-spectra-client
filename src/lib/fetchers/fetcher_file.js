@@ -35,9 +35,12 @@ const saveFile = (target) => {
   data.append('molfile', mol);
   data.append('filename', filename);
   data.append('peaks_str', peakStr);
-  data.append('shift_select_x', shift.peak.x);
-  data.append('shift_ref_name', shift.ref.name);
-  data.append('shift_ref_value', shift.ref.value);
+  if (shift) {
+    data.append('shift_select_x', shift.peak.x);
+    data.append('shift_ref_name', shift.ref.name);
+    data.append('shift_ref_value', shift.ref.value);
+  }
+  
   data.append('mass', mass);
   data.append('scan', scan);
   data.append('thres', thres);
