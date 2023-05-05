@@ -26,7 +26,7 @@ const convertFile = (target) => {
 const saveFile = (target) => {
   const {
     src, dst, filename, mol, dstList, peakStr, shift, mass, scan, thres, predict,
-    integration, multiplicity, waveLength, cyclicvolta
+    integration, multiplicity, waveLength, cyclicvolta,
   } = target;
 
   const data = new FormData();
@@ -40,7 +40,6 @@ const saveFile = (target) => {
     data.append('shift_ref_name', shift.ref.name);
     data.append('shift_ref_value', shift.ref.value);
   }
-  
   data.append('mass', mass);
   data.append('scan', scan);
   data.append('thres', thres);
@@ -51,7 +50,7 @@ const saveFile = (target) => {
   data.append('cyclic_volta', cyclicvolta);
 
   if (dstList) {
-    dstList.forEach(dstFile => {
+    dstList.forEach((dstFile) => {
       data.append('dst_list', dstFile);
     });
   }
@@ -84,7 +83,7 @@ const saveFile = (target) => {
 const refreshFile = (target) => {
   const {
     src, dst, filename, dstList, mol, peakStr, shift, mass, scan, thres, predict,
-    integration, multiplicity, waveLength, cyclicvolta
+    integration, multiplicity, waveLength, cyclicvolta,
   } = target;
 
   const data = new FormData();
@@ -106,7 +105,7 @@ const refreshFile = (target) => {
   data.append('cyclic_volta', cyclicvolta);
 
   if (dstList) {
-    dstList.forEach(dstFile => {
+    dstList.forEach((dstFile) => {
       data.append('dst_list', dstFile);
     });
   }

@@ -53,26 +53,24 @@ function* convertFile(action) {
           file, img, jcamp: jcampData, dst,
         }),
       });
-    }
-    else if (listJcamps) {
-      const jcampList = listJcamps.map(itemJcamp => {
+    } else if (listJcamps) {
+      const jcampList = listJcamps.map((itemJcamp) => {
         const origData = base64.decode(itemJcamp);
         const jcampData = FN.ExtractJcamp(origData);
-        return jcampData
+        return jcampData;
       });
       const dstList = listJcamps.map((itemJcamp, idx) => {
         const origData = base64.decode(itemJcamp);
         const dst = new File([origData], `dst_${idx}.jcamp`);
-        return dst
+        return dst;
       });
       yield put({
         type: FILE.CONVERT_DONE,
         payload: Object.assign({}, {
-          file, jcampList: jcampList, dstList: dstList
+          file, jcampList, dstList,
         }),
       });
-    }
-    else {
+    } else {
       yield put({
         type: FILE.CONVERT_FAIL,
         payload,
@@ -101,7 +99,7 @@ function* saveFile(action) {
   const { name } = src;
   const filename = name.split('.').slice(0, -1).join('.');
   const target = Object.assign({}, payload, {
-    src, dst, filename, mol, dstList
+    src, dst, filename, mol, dstList,
   });
 
   yield call(FetcherFile.saveFile, target);
