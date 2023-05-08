@@ -84,10 +84,12 @@ class Content extends React.Component {
     this.buildOthers = this.buildOthers.bind(this);
   }
 
-  getPeaksByLayout(peaks, layout, multiplicity) {
+  getPeaksByLayout(peaks, layout, multiplicity, curveIdx = 0) {
     if (['IR'].indexOf(layout) >= 0) return peaks;
     if (['13C'].indexOf(layout) >= 0) return FN.CarbonFeatures(peaks, multiplicity);
-    const { stack, shift } = multiplicity;
+    const { multiplicities } = multiplicity;
+    const selectedMultiplicity = multiplicities[curveIdx];
+    const { stack, shift } = selectedMultiplicity;
     const nmrMpyCenters = stack.map((stk) => {
       const { mpyType } = stk;
       const centers = stk.peaks;
@@ -118,8 +120,9 @@ class Content extends React.Component {
   }
 
   formatMpy({
-    multiplicity, integration, shift, isAscend, decimal, layout,
+    multiplicity, integration, shift, isAscend, decimal, layout, curveSt,
   }) {
+    const { curveIdx } = curveSt;
     // obsv freq
     const { fileSt } = this.props;
     const { entity } = FN.buildData(fileSt.jcamp);
@@ -130,10 +133,14 @@ class Content extends React.Component {
     const freq = observeFrequency;
     const freqStr = freq ? `${parseInt(freq, 10)} MHz, ` : '';
     // multiplicity
-    const { refArea, refFactor } = integration;
-    const shiftVal = multiplicity.shift;
-    const ms = multiplicity.stack;
-    const is = integration.stack;
+    const { integrations } = integration;
+    const selectedIntegration = integrations[curveIdx];
+    const { refArea, refFactor } = selectedIntegration;
+    const { multiplicities } = multiplicity;
+    const selectedMultiplicity = multiplicities[curveIdx];
+    const shiftVal = selectedMultiplicity.shift;
+    const ms = selectedMultiplicity.stack;
+    const is = selectedIntegration.stack;
 
     const macs = ms.map((m) => {
       const { peaks, mpyType, xExtent } = m;
@@ -160,18 +167,21 @@ class Content extends React.Component {
         ? `${location} (${type}${atomCount})`
         : `${location} (${type}, ${js}${atomCount})`;
     }).join(', ');
-    const { label, value, name } = shift.ref;
+
+    const { shifts } = shift;
+    const selectedShift = shifts[curveIdx];
+    const { label, value, name } = selectedShift.ref;
     const solvent = label ? `${name.split('(')[0].trim()} [${value.toFixed(decimal)} ppm], ` : '';
     return `${layout} NMR (${freqStr}${solvent}ppm) δ = ${str}.`;
   }
 
   writeMpy({
     layout, shift, isAscend, decimal,
-    multiplicity, integration,
+    multiplicity, integration, curveSt,
   }) {
     if (['1H', '13C', '19F'].indexOf(layout) < 0) return;
     const desc = this.formatMpy({
-      multiplicity, integration, shift, isAscend, decimal, layout,
+      multiplicity, integration, shift, isAscend, decimal, layout, curveSt,
     });
     const { updateDescAct } = this.props;
     updateDescAct(desc);
@@ -235,7 +245,7 @@ class Content extends React.Component {
   }
 
   refreshOp({
-    peaks, scan, shift, thres, analysis, integration, multiplicity,
+    peaks, scan, shift, thres, analysis, integration, multiplicity, curveSt,
   }) {
     const {
       refreshFileInitAct, molSt,
@@ -245,28 +255,41 @@ class Content extends React.Component {
     const peakStr = FN.toPeakStr(fPeaks);
     const predict = JSON.stringify(analysis);
 
+    const { curveIdx } = curveSt;
+    const { shifts } = shift;
+    const selectedShift = shifts[curveIdx];
+    const { integrations } = integration;
+    const selectedIntegration = integrations[curveIdx];
+    const { multiplicities } = multiplicity;
+    const selectedMultiplicity = multiplicities[curveIdx];
+
     refreshFileInitAct({
       peakStr,
-      shift,
+      shift: selectedShift,
       mass,
       scan,
       thres,
       predict,
-      integration: JSON.stringify(integration),
-      multiplicity: JSON.stringify(multiplicity),
+      integration: JSON.stringify(selectedIntegration),
+      multiplicity: JSON.stringify(selectedMultiplicity),
     });
   }
 
   predictOp({
-    peaks, layout, shift, multiplicity,
+    peaks, layout, shift, multiplicity, curveSt,
   }) {
     const { predictInitAct, molSt, fileSt } = this.props;
     const molfile = molSt.src;
 
-    const targetPeaks = this.getPeaksByLayout(peaks, layout, multiplicity);
+    const { curveIdx } = curveSt;
+
+    const targetPeaks = this.getPeaksByLayout(peaks, layout, multiplicity, curveIdx);
+
+    const { shifts } = shift;
+    const selectedShift = shifts[curveIdx];
 
     predictInitAct({
-      molfile, peaks: targetPeaks, layout, shift, spectrum: fileSt.src,
+      molfile, peaks: targetPeaks, layout, shift: selectedShift, spectrum: fileSt.src,
     });
   }
 
