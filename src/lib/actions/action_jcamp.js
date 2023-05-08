@@ -8,5 +8,5 @@ const addOthersInit = payload => (
 );
 
 export {
-  addOthersInit,
+  addOthersInit,  // eslint-disable-line
 };

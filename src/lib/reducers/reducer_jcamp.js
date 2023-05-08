@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { JCAMP } from '../constants/action_type';
 
 const initialState = {
