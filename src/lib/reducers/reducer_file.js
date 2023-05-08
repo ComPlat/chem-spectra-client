@@ -12,7 +12,7 @@ const initialState = {
 const updateConversion = (state, action) => {
   const { payload } = action;
   const {
-    file, dst, jcamp, img, jcampList, dstList
+    file, dst, jcamp, img, jcampList, dstList,
   } = payload;
   return Object.assign(
     {},
@@ -23,7 +23,7 @@ const updateConversion = (state, action) => {
       jcamp,
       img,
       jcampList,
-      dstList
+      dstList,
     },
   );
 };

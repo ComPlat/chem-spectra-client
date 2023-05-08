@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow, react/no-unused-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -83,8 +84,25 @@ class Content extends React.Component {
     this.buildOthers = this.buildOthers.bind(this);
   }
 
+  getPeaksByLayout(peaks, layout, multiplicity) {
+    if (['IR'].indexOf(layout) >= 0) return peaks;
+    if (['13C'].indexOf(layout) >= 0) return FN.CarbonFeatures(peaks, multiplicity);
+    const { stack, shift } = multiplicity;
+    const nmrMpyCenters = stack.map((stk) => {
+      const { mpyType } = stk;
+      const centers = stk.peaks;
+      return {
+        x: FN.CalcMpyCenter(centers, shift, mpyType),
+        y: 0,
+      };
+    });
+
+    const defaultCenters = [{ x: -1000.0, y: 0 }];
+    return nmrMpyCenters.length > 0 ? nmrMpyCenters : defaultCenters;
+  }
+
   formatPks({
-    peaks, layout, shift, isAscend, decimal, isIntensity, integration
+    peaks, layout, shift, isAscend, decimal, isIntensity, integration,
   }) {
     const { fileSt } = this.props;
     const { entity } = FN.buildData(fileSt.jcamp);
@@ -92,7 +110,7 @@ class Content extends React.Component {
     const { maxY, minY } = Array.isArray(features) ? {} : (features.editPeak || features.autoPeak);
     const boundary = { maxY, minY };
     const body = FN.peaksBody({
-      peaks, layout, decimal, shift, isAscend, isIntensity, boundary, integration
+      peaks, layout, decimal, shift, isAscend, isIntensity, boundary, integration,
     });
     const wrapper = FN.peaksWrapper(layout, shift);
     const desc = RmDollarSign(wrapper.head) + body + wrapper.tail;
@@ -160,10 +178,10 @@ class Content extends React.Component {
   }
 
   writePeak({
-    peaks, layout, shift, isAscend, decimal, isIntensity, integration
+    peaks, layout, shift, isAscend, decimal, isIntensity, integration,
   }) {
     const desc = this.formatPks({
-      peaks, layout, shift, isAscend, decimal, isIntensity, integration
+      peaks, layout, shift, isAscend, decimal, isIntensity, integration,
     });
     const { updateDescAct } = this.props;
     updateDescAct(desc);
@@ -189,7 +207,8 @@ class Content extends React.Component {
   }
 
   saveOp({
-    peaks, shift, scan, thres, analysis, integration, multiplicity, waveLength, cyclicvoltaSt, curveSt
+    peaks, shift, scan, thres, analysis, integration,
+    multiplicity, waveLength, cyclicvoltaSt, curveSt,
   }) {
     const {
       saveFileInitAct, molSt,
@@ -197,7 +216,6 @@ class Content extends React.Component {
     const { mass } = molSt;
     const { curveIdx } = curveSt;
     const selectedShift = shift.shifts[curveIdx];
-    console.log(shift);
     const fPeaks = FN.rmRef(peaks, selectedShift);
     const peakStr = FN.toPeakStr(fPeaks);
     const predict = JSON.stringify(analysis);
@@ -239,30 +257,13 @@ class Content extends React.Component {
     });
   }
 
-  getPeaksByLayou(peaks, layout, multiplicity) {
-    if (['IR'].indexOf(layout) >= 0) return peaks;
-    if (['13C'].indexOf(layout) >= 0) return FN.CarbonFeatures(peaks, multiplicity);
-    const { stack, shift } = multiplicity;
-    const nmrMpyCenters = stack.map((stk) => {
-      const { mpyType } = stk;
-      const centers = stk.peaks;
-      return {
-        x: FN.CalcMpyCenter(centers, shift, mpyType),
-        y: 0,
-      };
-    });
-
-    const defaultCenters = [{ x: -1000.0, y: 0 }];
-    return nmrMpyCenters.length > 0 ? nmrMpyCenters : defaultCenters;
-  }
-
   predictOp({
     peaks, layout, shift, multiplicity,
   }) {
     const { predictInitAct, molSt, fileSt } = this.props;
     const molfile = molSt.src;
 
-    const targetPeaks = this.getPeaksByLayou(peaks, layout, multiplicity);
+    const targetPeaks = this.getPeaksByLayout(peaks, layout, multiplicity);
 
     predictInitAct({
       molfile, peaks: targetPeaks, layout, shift, spectrum: fileSt.src,
@@ -311,7 +312,9 @@ class Content extends React.Component {
   }
 
   render() {
-    const { fileSt, descSt, editorOnly, molSt } = this.props;
+    const {
+      fileSt, descSt, editorOnly, molSt,
+    } = this.props;
     if (!fileSt) return renderTitle();
 
     const {
@@ -328,7 +331,7 @@ class Content extends React.Component {
       if (!jcampList || jcampList.length === 0) return renderTitle();
       multiEntities = jcampList.map((jcamp) => {
         const {
-          entity, xLabel, yLabel
+          entity, xLabel, yLabel,
         } = FN.buildData(jcamp);
         currEntity = entity;
         currXLabel = xLabel;
@@ -336,7 +339,7 @@ class Content extends React.Component {
         return entity;
       });
     }
-    
+
     // if (!isExist) return renderTitle();
 
     const { svg } = molSt;
@@ -419,6 +422,7 @@ Content.propTypes = {
   updateDescAct: PropTypes.func.isRequired,
   addOthersAct: PropTypes.func.isRequired,
   editorOnly: PropTypes.bool.isRequired,
+  addOthersInitAct: PropTypes.func.isRequired,
 };
 
 export default connect(
