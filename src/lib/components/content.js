@@ -104,10 +104,19 @@ class Content extends React.Component {
   }
 
   formatPks({
-    peaks, layout, shift, isAscend, decimal, isIntensity, integration,
+    peaks, layout, shift, isAscend, decimal, isIntensity, integration, curveSt,
   }) {
     const { fileSt } = this.props;
-    const { entity } = FN.buildData(fileSt.jcamp);
+    const { jcamp, jcampList } = fileSt;
+    let data = null;
+    if (jcamp) {
+      data = FN.buildData(jcamp);
+    } else {
+      const { curveIdx } = curveSt;
+      const selectedJcamp = jcampList[curveIdx];
+      data = FN.buildData(selectedJcamp);
+    }
+    const { entity } = data;
     const { features } = entity;
     const { maxY, minY } = Array.isArray(features) ? {} : (features.editPeak || features.autoPeak);
     const boundary = { maxY, minY };
@@ -188,10 +197,10 @@ class Content extends React.Component {
   }
 
   writePeak({
-    peaks, layout, shift, isAscend, decimal, isIntensity, integration,
+    peaks, layout, shift, isAscend, decimal, isIntensity, integration, curveSt,
   }) {
     const desc = this.formatPks({
-      peaks, layout, shift, isAscend, decimal, isIntensity, integration,
+      peaks, layout, shift, isAscend, decimal, isIntensity, integration, curveSt,
     });
     const { updateDescAct } = this.props;
     updateDescAct(desc);
