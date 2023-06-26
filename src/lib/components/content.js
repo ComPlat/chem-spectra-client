@@ -235,7 +235,7 @@ class Content extends React.Component {
     const { mass } = molSt;
     const { curveIdx } = curveSt;
     const selectedShift = shift.shifts[curveIdx];
-    const fPeaks = FN.rmRef(peaks, selectedShift);
+    const fPeaks = FN.rmRef(peaks, shift);
     const peakStr = FN.toPeakStr(fPeaks);
     const predict = JSON.stringify(analysis);
 
