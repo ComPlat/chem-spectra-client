@@ -4,19 +4,19 @@ import { compose, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
-import { withStyles } from '@material-ui/core/styles';
-import Snackbar from '@material-ui/core/Snackbar';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import { withStyles } from '@mui/styles';
+import {
+  Snackbar, SnackbarContent, IconButton,
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import {
+  green, amber,
+} from '@mui/material/colors';
 
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import WarningIcon from '@material-ui/icons/Warning';
-import ErrorIcon from '@material-ui/icons/Error';
-import InfoIcon from '@material-ui/icons/Info';
-
-import green from '@material-ui/core/colors/green';
-import amber from '@material-ui/core/colors/amber';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import WarningIcon from '@mui/icons-material/Warning';
+import ErrorIcon from '@mui/icons-material/Error';
+import InfoIcon from '@mui/icons-material/Info';
 
 import { manualClear } from '../actions/action_notice';
 
@@ -88,6 +88,7 @@ const BarContent = (props) => {
             color="inherit"
             className={classes.close}
             onClick={onClose}
+            size="large"
           >
             <CloseIcon className={classes.icon} />
           </IconButton>,

@@ -3,8 +3,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
+import Grid from '@mui/material/Grid';
+import withStyles from '@mui/styles/withStyles';
+import {
+  createTheme, ThemeProvider,
+} from '@mui/material/styles';
 
 import Content from './components/content';
 import InputMol from './components/input_mol';
@@ -14,6 +17,8 @@ import InputPredJson from './components/input_pred_json';
 import Loading from './components/loading';
 import Notice from './components/notice';
 
+const theme = createTheme();
+
 const styles = () => ({
   root: {
     flexGrow: 1,
@@ -21,7 +26,7 @@ const styles = () => ({
 });
 
 const FullVersion = ({ classes, editorOnly }) => (
-  <Grid container className={classes.root} spacing={24}>
+  <Grid container className={classes.root} spacing={10}>
     <Grid key="grid-drop-space" item xs={1} />
     <Grid key="grid-drop-mol" item xs={4}>
       <InputMol />
@@ -75,16 +80,18 @@ EditorVersion.propTypes = {
 };
 
 const Frame = ({ classes, editorOnly }) => (
-  <div>
-    {
-      editorOnly
-        ? <EditorVersion classes={classes} editorOnly={editorOnly} />
-        : <FullVersion classes={classes} editorOnly={editorOnly} />
-    }
-    <Content editorOnly={editorOnly} />
-    <Notice />
-    <Loading />
-  </div>
+  <ThemeProvider theme={theme}>
+    <div>
+      {
+        editorOnly
+          ? <EditorVersion classes={classes} editorOnly={editorOnly} />
+          : <FullVersion classes={classes} editorOnly={editorOnly} />
+      }
+      <Content editorOnly={editorOnly} />
+      <Notice />
+      <Loading />
+    </div>
+  </ThemeProvider>
 );
 
 Frame.propTypes = {
