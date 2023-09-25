@@ -5,8 +5,8 @@ import { bindActionCreators } from 'redux';
 import Dropzone from 'react-dropzone';
 import classNames from 'classnames';
 
-import { withStyles } from '@material-ui/core/styles';
-import Tooltip from '@material-ui/core/Tooltip';
+import withStyles from '@mui/styles/withStyles';
+import Tooltip from '@mui/material/Tooltip';
 
 import { addFileInit } from '../actions/action_file';
 
