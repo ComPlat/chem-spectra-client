@@ -104,7 +104,7 @@ class Content extends React.Component {
   }
 
   formatPks({
-    peaks, layout, shift, isAscend, decimal, isIntensity, integration, curveSt,
+    peaks, layout, shift, isAscend, decimal, isIntensity, integration, curveSt, waveLength,
   }) {
     const { fileSt } = this.props;
     const { jcamp, jcampList } = fileSt;
@@ -118,11 +118,10 @@ class Content extends React.Component {
     }
     const { entity } = data;
     const { features } = entity;
+    const { temperature } = entity;
     const { maxY, minY } = Array.isArray(features) ? {} : (features.editPeak || features.autoPeak);
     const boundary = { maxY, minY };
-    const body = FN.peaksBody({
-      peaks, layout, decimal, shift, isAscend, isIntensity, boundary, integration,
-    });
+    const body = FN.peaksBody({ peaks, layout, decimal, shift, isAscend, isIntensity, boundary, integration, waveLength, temperature,}); //eslint-disable-line
     const wrapper = FN.peaksWrapper(layout, shift);
     const desc = RmDollarSign(wrapper.head) + body + wrapper.tail;
     return desc;
@@ -197,10 +196,10 @@ class Content extends React.Component {
   }
 
   writePeak({
-    peaks, layout, shift, isAscend, decimal, isIntensity, integration, curveSt,
+    peaks, layout, shift, isAscend, decimal, isIntensity, integration, curveSt, waveLength,
   }) {
     const desc = this.formatPks({
-      peaks, layout, shift, isAscend, decimal, isIntensity, integration, curveSt,
+      peaks, layout, shift, isAscend, decimal, isIntensity, integration, curveSt, waveLength,
     });
     const { updateDescAct } = this.props;
     updateDescAct(desc);
