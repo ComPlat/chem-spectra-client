@@ -1168,10 +1168,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@complat/react-spectra-editor@1.0.0-rc19":
-  version "1.0.0-rc19"
-  resolved "https://registry.yarnpkg.com/@complat/react-spectra-editor/-/react-spectra-editor-1.0.0-rc19.tgz#ced7f54d00fcac57f418b4b469839611fba53e70"
-  integrity sha512-c7NtJmKihsw/IQVqRhU4SY+OdRG+zr51dcnKiwXzPkbZq2CFS4xNEzb6qV3n7H92aaciUB7SMhb2OfdGU6S7Nw==
+"@complat/react-spectra-editor@1.0.0-rc20":
+  version "1.0.0-rc20"
+  resolved "https://registry.yarnpkg.com/@complat/react-spectra-editor/-/react-spectra-editor-1.0.0-rc20.tgz#8ae1d8e8ef56754f6c21a51c6b801e8fbc4bc4d8"
+  integrity sha512-UkZJD5a/KBDHBHCFh3juZEN+EOwuwHkPpSqAc7mtYTA8u++kLAiM2MhFntgfL3q5GWnZ70wpl0/LZUVswBVh+Q==
   dependencies:
     "@babel/preset-env" "^7.21.5"
     "@babel/preset-react" "^7.18.6"
