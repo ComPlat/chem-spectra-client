@@ -1,6 +1,6 @@
 {
   "name": "@complat/chem-spectra-client",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "ChemSpectra client side server.",
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
     "react-dom": "^17.0.2"
   },
   "dependencies": {
-    "@complat/react-spectra-editor": "1.0.1",
+    "@complat/react-spectra-editor": "1.1.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.9",
