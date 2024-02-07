@@ -1169,10 +1169,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@complat/react-spectra-editor@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@complat/react-spectra-editor/-/react-spectra-editor-1.1.1.tgz#487cdb91a9084023f405a05c151ae059a8de20a9"
-  integrity sha512-EBpfx7JJuSCfbBDx2hm43ZnPeMZZAPNJbR0TUiI565Ev5CbVB4a0rPUfsAbaW3fEs9l74VDe47hqc09OmWH7kg==
+"@complat/react-spectra-editor@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@complat/react-spectra-editor/-/react-spectra-editor-1.2.0.tgz#8e32836f10b3a3b4739a6b599c9f3ae67a62c5f8"
+  integrity sha512-9s0tTIi9mlrRsR7eVXIARQ6CbQR5TV2mdLbMI3n+4kn+pyKiqVLjtFxuyPxO1IQugm7x9m6VSp5OM3sOp+5FfA==
   dependencies:
     "@complat/react-svg-file-zoom-pan" "1.1.3"
     "@emotion/react" "^11.11.1"
