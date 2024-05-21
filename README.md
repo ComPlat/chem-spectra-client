@@ -4,6 +4,8 @@ ChemSpectra client side server.
 
 This server integrates `react-spectra-editor` to view and edit chemical spectra (NMR, IR, and MS). File management, peaks output, and notifications are realized in this server.
 
+![GitHub package.json version](https://img.shields.io/github/package-json/v/ComPlat/chem-spectra-client)
+
 ### Usage
 
 ```
