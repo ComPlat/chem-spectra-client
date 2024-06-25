@@ -227,6 +227,7 @@ class Content extends React.Component {
   saveOp({
     peaks, shift, scan, thres, analysis, integration,
     multiplicity, waveLength, cyclicvoltaSt, curveSt,
+    dscMetaData,
   }) {
     const {
       saveFileInitAct, molSt,
@@ -249,6 +250,7 @@ class Content extends React.Component {
       multiplicity: JSON.stringify(multiplicity),
       waveLength: JSON.stringify(waveLength),
       cyclicvolta: JSON.stringify(cyclicvoltaSt),
+      dscMetaData: JSON.stringify(dscMetaData),
     });
   }
 

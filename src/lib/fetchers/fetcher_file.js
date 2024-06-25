@@ -26,7 +26,7 @@ const convertFile = (target) => {
 const saveFile = (target) => {
   const {
     src, dst, filename, mol, dstList, peakStr, shift, mass, scan, thres, predict,
-    integration, multiplicity, waveLength, cyclicvolta,
+    integration, multiplicity, waveLength, cyclicvolta, dscMetaData,
   } = target;
 
   const data = new FormData();
@@ -48,6 +48,7 @@ const saveFile = (target) => {
   data.append('multiplicity', multiplicity);
   data.append('wave_length', waveLength);
   data.append('cyclic_volta', cyclicvolta);
+  data.append('dsc_meta_data', dscMetaData);
 
   if (dstList) {
     dstList.forEach((dstFile) => {
