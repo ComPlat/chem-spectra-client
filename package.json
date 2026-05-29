@@ -7,7 +7,7 @@
     "url": "https://github.com/ComPlat/chem-spectra-client"
   },
   "proxy": "http://0.0.0.0:3007",
-  "license": "AGPL-3.0",
+  "license": "MIT",
   "scripts": {
     "start": "PORT=3006 react-scripts start",
     "build": "react-scripts build",
